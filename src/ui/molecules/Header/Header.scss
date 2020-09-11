@@ -1,0 +1,66 @@
+.header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__logo-container {
+    display: flex;
+  }
+  &__logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 38px;
+      height: 38px;
+    }
+  }
+  &__logo-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    > span {
+      font-family: Proxima Nova;
+      font-style: normal;
+    }
+    span:nth-child(1) {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 29px;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+    span:nth-child(2) {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      color: #7b7b7b;
+    }
+  }
+  &__cart {
+    a {
+      width: 150px;
+      height: 50px;
+      background: #fe5f1e;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      transition: 0.3s all;
+      &:hover {
+        background: darken(#fe5f1e, 10%);
+        color: #ffffff;
+      }
+    }
+    span {
+      margin: 10px;
+    }
+    span:nth-child(1) {
+      border-right: 1px solid #fff;
+      padding-right: 20px;
+    }
+    i {
+      margin-right: 5px;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.categories-button {
+  width: 132.63px;
+  height: 46px;
+  margin: 0 10px;
+  background: #f9f9f9;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s all;
+  outline: none;
+  border: none;
+  &:hover {
+    background: darken(#f9f9f9, 10%);
+  }
+}
