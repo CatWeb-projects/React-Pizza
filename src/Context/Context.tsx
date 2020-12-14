@@ -4,11 +4,39 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-const defaultValue = {};
+interface Pizza {
+  id: number;
+  imageUrl: string;
+  name: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+}
+[];
 
-export const PizzaContext = React.createContext<any>(defaultValue);
+interface Props {
+  pizzaSize: any;
+  setPizzaSize: React.Dispatch<React.SetStateAction<any>>;
+}
 
-export const pizzas = [
+const defaultValue = {
+  id: 0,
+  imageUrl: '',
+  name: '',
+  types: [],
+  sizes: [],
+  price: 0,
+  category: 0,
+  rating: 0,
+  pizzaSize: 26,
+  setPizzaSize: () => {}
+};
+
+export const PizzaContext = React.createContext<Props>(defaultValue);
+
+export const pizzas: Pizza[] = [
   {
     id: 0,
     imageUrl:
@@ -122,6 +150,12 @@ export const pizzas = [
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
+  const [pizzaSize, setPizzaSize] = React.useState(pizzas[0].sizes[0]);
+
   const { children } = props;
-  return <PizzaContext.Provider value={{}}>{children}</PizzaContext.Provider>;
+  return (
+    <PizzaContext.Provider value={{ pizzaSize, setPizzaSize }}>
+      {children}
+    </PizzaContext.Provider>
+  );
 };

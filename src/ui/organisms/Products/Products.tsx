@@ -1,19 +1,25 @@
-import React, { useState, useCallback } from 'react';
-import { pizzas } from 'Context/Context';
+import React from 'react';
+import { pizzas, PizzaContext } from 'Context/Context';
+
 import './Products.scss';
 
 export const Products = () => {
-  const [active, setActive] = useState<boolean>(false);
-  const [pizzaSize, setPizzaSize] = useState<any>();
+  const { pizzaSize, setPizzaSize } = React.useContext(PizzaContext);
 
-  const addToCart = useCallback((name: string, price: number) => {
+  const addToCart = React.useCallback((name: string, price: number) => {
     console.log(name, price);
   }, []);
 
-  const selectSize = useCallback(
-    (e: any) => {
-      e.preventDefault();
-      console.log(e.target.value);
+  const selectSize = React.useCallback(
+    (id: number) => {
+      setPizzaSize(
+        pizzas.map((pizza) => ({
+          ...pizza,
+          id: pizza.id === id ? pizza.sizes : null
+        }))
+      );
+      console.log(pizzaSize, 'state');
+      console.log(id, 'size');
     },
     [pizzaSize]
   );
@@ -21,9 +27,10 @@ export const Products = () => {
   return (
     <div className="products-container">
       <h2>Все Пиццы</h2>
+
       <div className="products-container__products">
         {pizzas &&
-          pizzas.map((pizza: any) => (
+          pizzas.map((pizza) => (
             <div key={pizza.id} className="products-container__pizza">
               <div className="products-container__logo">
                 <img src={pizza.imageUrl} alt="" />
@@ -31,24 +38,27 @@ export const Products = () => {
               <div className="products-container__title">{pizza.name}</div>
               <div className="products-container__select">
                 <div className="products-container__types">
-                  {pizza.types.map((type: any, i: number) => (
+                  {pizza.types.map((type) => (
                     <button
                       value={type === 0 ? 'Тонкое' : 'Традиционное'}
                       onClick={(e: any) => console.log(e.target.value)}
-                      key={i + 1}
+                      key={type}
                       className="products-container__type"
                     >
                       {type === 0 ? 'Тонкое' : 'Традиционное'}
                     </button>
                   ))}
                 </div>
+
                 <div className="products-container__sizes">
-                  {pizza.sizes.map((size: number, i: number) => (
+                  {pizza.sizes.map((size: number) => (
                     <button
                       value={`${size} см`}
-                      onClick={selectSize}
-                      key={i + 1}
-                      className="products-container__size"
+                      onClick={() => selectSize(size)}
+                      key={size}
+                      className={`products-container__size ${
+                        pizzaSize === size ? 'active' : ''
+                      }`}
                     >{`${size} см`}</button>
                   ))}
                 </div>

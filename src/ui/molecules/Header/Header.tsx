@@ -1,6 +1,5 @@
 import React from 'react';
 import './Header.scss';
-import { Button } from 'ui/atoms/Button/Button';
 
 export const Header = () => {
   return (
