@@ -16,7 +16,18 @@ interface Pizza {
 }
 [];
 
-interface Props {}
+interface CardPizza {
+  name: string;
+  price: number;
+  size: number;
+  type: number;
+}
+[];
+
+interface Props {
+  cartPizzas: CardPizza[];
+  setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
+}
 
 const defaultValue = {
   id: 0,
@@ -26,7 +37,9 @@ const defaultValue = {
   sizes: [],
   price: 0,
   category: 0,
-  rating: 0
+  rating: 0,
+  cartPizzas: [],
+  setCardPizzas: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -145,6 +158,12 @@ export const pizzas: Pizza[] = [
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
+  const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
+
   const { children } = props;
-  return <PizzaContext.Provider value={{}}>{children}</PizzaContext.Provider>;
+  return (
+    <PizzaContext.Provider value={{ cartPizzas, setCardPizzas }}>
+      {children}
+    </PizzaContext.Provider>
+  );
 };

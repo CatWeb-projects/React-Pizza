@@ -4,6 +4,7 @@ import { pizzas, PizzaContext } from 'Context/Context';
 import './Products.scss';
 
 export const Products = () => {
+  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
   const [saveId, setSaveId] = React.useState<number>();
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
@@ -14,14 +15,12 @@ export const Products = () => {
     size: number,
     type: number
   ) => {
-    console.log(name, price, size, type, 'add');
-    console.log({
-      name: name,
-      price: price,
-      size: size,
-      type: type
-    });
+    if (size === 0) {
+      return null;
+    }
+    setCardPizzas([...cartPizzas, { name, price, size, type }]);
   };
+  console.log(cartPizzas);
 
   const selectSize = React.useCallback((id: number, size: number) => {
     pizzas.map((pizza) => {
