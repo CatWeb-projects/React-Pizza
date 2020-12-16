@@ -47,9 +47,9 @@
     padding: 10px;
   }
 
-  &__sizes {
+  &__sizes, &__types {
     .active {
-      background: red;
+      background: darken(#fff, 30%);
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
     }
   }

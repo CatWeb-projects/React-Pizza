@@ -4,19 +4,26 @@ import { pizzas, PizzaContext } from 'Context/Context';
 import './Products.scss';
 
 export const Products = () => {
-  const { pizzaSize, setPizzaSize } = React.useContext(PizzaContext);
   const [saveId, setSaveId] = React.useState<number>();
+  const [pizzaSize, setPizzaSize] = React.useState<number>(0);
+  const [pizzaType, setPizzaType] = React.useState<number>(0);
 
-  const addToCart = (name: string, price: number, size: number) => {
-    console.log(name, price, size, 'add');
+  const addToCart = (
+    name: string,
+    price: number,
+    size: number,
+    type: number
+  ) => {
+    console.log(name, price, size, type, 'add');
     console.log({
       name: name,
       price: price,
-      size: size
+      size: size,
+      type: type
     });
   };
 
-  const selectSize = (id: number, size: number) => {
+  const selectSize = React.useCallback((id: number, size: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -24,7 +31,19 @@ export const Products = () => {
         setPizzaSize(size);
       }
     });
-  };
+  }, []);
+
+  const selectCakeType = React.useCallback((id: number, type: number) => {
+    pizzas.map((pizza) => {
+      if (pizza.id === id) {
+        setSaveId(pizza.id);
+        pizza.types.filter((match) => match === type);
+        setPizzaType(type);
+      }
+      console.log(id);
+      console.log(type);
+    });
+  }, []);
 
   return (
     <div className="products-container">
@@ -43,9 +62,13 @@ export const Products = () => {
                   {pizza.types.map((type) => (
                     <button
                       value={type === 0 ? 'Тонкое' : 'Традиционное'}
-                      onClick={(e: any) => console.log(e.target.value)}
+                      onClick={() => selectCakeType(pizza.id, type)}
                       key={type}
-                      className="products-container__type"
+                      className={`products-container__type ${
+                        saveId === pizza.id && pizzaType === type
+                          ? 'active'
+                          : ''
+                      }`}
                     >
                       {type === 0 ? 'Тонкое' : 'Традиционное'}
                     </button>
@@ -70,7 +93,9 @@ export const Products = () => {
               <div className="products-container__price">
                 <span>От {`${pizza.price} ₽`}</span>
                 <button
-                  onClick={() => addToCart(pizza.name, pizza.price, pizzaSize)}
+                  onClick={() =>
+                    addToCart(pizza.name, pizza.price, pizzaSize, pizzaType)
+                  }
                 >
                   <i className="fas fa-plus"></i>Добавить
                 </button>

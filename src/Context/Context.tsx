@@ -16,10 +16,7 @@ interface Pizza {
 }
 [];
 
-interface Props {
-  pizzaSize: any;
-  setPizzaSize: React.Dispatch<React.SetStateAction<any>>;
-}
+interface Props {}
 
 const defaultValue = {
   id: 0,
@@ -29,9 +26,7 @@ const defaultValue = {
   sizes: [],
   price: 0,
   category: 0,
-  rating: 0,
-  pizzaSize: 26,
-  setPizzaSize: () => {}
+  rating: 0
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -150,12 +145,6 @@ export const pizzas: Pizza[] = [
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
-  const [pizzaSize, setPizzaSize] = React.useState();
-
   const { children } = props;
-  return (
-    <PizzaContext.Provider value={{ pizzaSize, setPizzaSize }}>
-      {children}
-    </PizzaContext.Provider>
-  );
+  return <PizzaContext.Provider value={{}}>{children}</PizzaContext.Provider>;
 };
