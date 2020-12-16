@@ -5,24 +5,26 @@ import './Products.scss';
 
 export const Products = () => {
   const { pizzaSize, setPizzaSize } = React.useContext(PizzaContext);
+  const [saveId, setSaveId] = React.useState<number>();
 
-  const addToCart = React.useCallback((name: string, price: number) => {
-    console.log(name, price);
-  }, []);
+  const addToCart = (name: string, price: number, size: number) => {
+    console.log(name, price, size, 'add');
+    console.log({
+      name: name,
+      price: price,
+      size: size
+    });
+  };
 
-  const selectSize = React.useCallback(
-    (id: number) => {
-      setPizzaSize(
-        pizzas.map((pizza) => ({
-          ...pizza,
-          id: pizza.id === id ? pizza.sizes : null
-        }))
-      );
-      console.log(pizzaSize, 'state');
-      console.log(id, 'size');
-    },
-    [pizzaSize]
-  );
+  const selectSize = (id: number, size: number) => {
+    pizzas.map((pizza) => {
+      if (pizza.id === id) {
+        setSaveId(pizza.id);
+        pizza.sizes.filter((match) => match === size);
+        setPizzaSize(size);
+      }
+    });
+  };
 
   return (
     <div className="products-container">
@@ -54,10 +56,12 @@ export const Products = () => {
                   {pizza.sizes.map((size: number) => (
                     <button
                       value={`${size} см`}
-                      onClick={() => selectSize(size)}
+                      onClick={() => selectSize(pizza.id, size)}
                       key={size}
                       className={`products-container__size ${
-                        pizzaSize === size ? 'active' : ''
+                        saveId === pizza.id && pizzaSize === size
+                          ? 'active'
+                          : ''
                       }`}
                     >{`${size} см`}</button>
                   ))}
@@ -65,7 +69,9 @@ export const Products = () => {
               </div>
               <div className="products-container__price">
                 <span>От {`${pizza.price} ₽`}</span>
-                <button onClick={() => addToCart(pizza.name, pizza.price)}>
+                <button
+                  onClick={() => addToCart(pizza.name, pizza.price, pizzaSize)}
+                >
                   <i className="fas fa-plus"></i>Добавить
                 </button>
               </div>

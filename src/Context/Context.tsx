@@ -150,7 +150,7 @@ export const pizzas: Pizza[] = [
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
-  const [pizzaSize, setPizzaSize] = React.useState(pizzas[0].sizes[0]);
+  const [pizzaSize, setPizzaSize] = React.useState();
 
   const { children } = props;
   return (
