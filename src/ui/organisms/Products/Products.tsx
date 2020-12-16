@@ -9,20 +9,15 @@ export const Products = () => {
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
 
-  const addToCart = (
-    name: string,
-    price: number,
-    size: number,
-    type: number
-  ) => {
+  const addToCart = React.useCallback((name, price, size, type) => {
     if (size === 0) {
       return null;
     }
     setCardPizzas([...cartPizzas, { name, price, size, type }]);
-  };
+  }, []);
   console.log(cartPizzas);
 
-  const selectSize = React.useCallback((id: number, size: number) => {
+  const selectSize = React.useCallback((id, size) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -32,7 +27,7 @@ export const Products = () => {
     });
   }, []);
 
-  const selectCakeType = React.useCallback((id: number, type: number) => {
+  const selectCakeType = React.useCallback((id, type) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -75,7 +70,7 @@ export const Products = () => {
                 </div>
 
                 <div className="products-container__sizes">
-                  {pizza.sizes.map((size: number) => (
+                  {pizza.sizes.map((size) => (
                     <button
                       value={`${size} см`}
                       onClick={() => selectSize(pizza.id, size)}
