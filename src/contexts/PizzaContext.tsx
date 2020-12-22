@@ -158,6 +158,17 @@ export const pizzas: Pizza[] = [
 export const ProviderContext = (props: ProviderProps) => {
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
 
+  React.useEffect(() => {
+    const data = localStorage.getItem('cart-products');
+    if (data) {
+      setCardPizzas(JSON.parse(data));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('cart-products', JSON.stringify(cartPizzas));
+  }, [cartPizzas]);
+
   const { children } = props;
   return (
     <PizzaContext.Provider value={{ cartPizzas, setCardPizzas }}>

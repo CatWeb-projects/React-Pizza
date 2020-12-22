@@ -19,6 +19,7 @@ interface Props {
 
 export const Pizza: React.FC<Props> = ({ pizza }) => {
   const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
+
   const [saveId, setSaveId] = React.useState<number>();
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
