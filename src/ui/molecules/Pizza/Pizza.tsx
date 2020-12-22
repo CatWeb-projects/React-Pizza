@@ -30,7 +30,8 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
       }
       setCardPizzas([...cartPizzas, { name, price, size, type }]);
     },
-    [cartPizzas, setCardPizzas]
+    // eslint-disable-next-line
+    [cartPizzas]
   );
   console.log(cartPizzas);
 
