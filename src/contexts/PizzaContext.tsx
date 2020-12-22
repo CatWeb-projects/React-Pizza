@@ -14,7 +14,6 @@ interface Pizza {
   category: number;
   rating: number;
 }
-[];
 
 interface CardPizza {
   name: string;
@@ -22,7 +21,6 @@ interface CardPizza {
   size: number;
   type: number;
 }
-[];
 
 interface Props {
   cartPizzas: CardPizza[];

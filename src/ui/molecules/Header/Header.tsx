@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'estafette-router';
+
 import './Header.scss';
 
 export const Header = () => {
@@ -6,7 +8,9 @@ export const Header = () => {
     <div className="header">
       <div className="header__logo-container">
         <div className="header__logo">
-          <img src="pizza-logo.svg" alt="" />
+          <Link to="/">
+            <img src="pizza-logo.svg" alt="pizza" />
+          </Link>
         </div>
         <div className="header__logo-info">
           <span>React Pizza</span>
@@ -14,12 +18,12 @@ export const Header = () => {
         </div>
       </div>
       <div className="header__cart">
-        <a href="#">
+        <Link to="/cart">
           <span>520 Р.</span>
           <span>
             <i className="fas fa-shopping-cart"></i>3
           </span>
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'ui/atoms/Button/Button';
+
 import './Categories.scss';
 
 export const Categories = () => {
@@ -34,8 +35,8 @@ export const Categories = () => {
     <div className="categories-container">
       <div className="categories-container__buttons">
         {buttonInfo &&
-          buttonInfo.map((button: any, i) => (
-            <Button key={i + 1} title={button.title} />
+          buttonInfo.map((button) => (
+            <Button key={button.id}>{button.title}</Button>
           ))}
       </div>
       <div className="categories-container__select">
