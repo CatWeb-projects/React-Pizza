@@ -16,10 +16,12 @@ interface Pizza {
 }
 
 interface CardPizza {
+  id: number;
   name: string;
   price: number;
   size: number;
   type: number;
+  imageUrl: string;
 }
 
 interface Props {

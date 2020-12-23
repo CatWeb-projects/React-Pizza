@@ -1,4 +1,5 @@
 import { MainLayout } from 'features/all/pages/MainLayout/MainLayout';
+import { Cart } from 'features/cart/pages/Cart/Cart';
 
 export interface Route {
   name: string;
@@ -14,5 +15,5 @@ export const routes: Route[] =
   [
     {name: 'Main', path: '/', exact: true, component: MainLayout},
 
-    // { name: 'Cart', path: '/cart', component: Cart },
+    { name: 'Cart', path: '/cart', component: Cart },
   ];

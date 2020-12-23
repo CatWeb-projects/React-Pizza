@@ -25,11 +25,12 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
   const [pizzaType, setPizzaType] = React.useState<number>(0);
 
   const addToCart = React.useCallback(
-    (name, price, size, type) => {
+    (id, name, price, size, type, imageUrl) => {
       if (size === 0) {
         return null;
       }
-      setCardPizzas([...cartPizzas, { name, price, size, type }]);
+
+      setCardPizzas([...cartPizzas, { id, name, price, size, type, imageUrl }]);
     },
     // eslint-disable-next-line
     [cartPizzas]
@@ -96,11 +97,19 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
               ))}
           </div>
         </div>
+
         <div className="products-container__price">
           <span>От {`${pizza.price} ₽`}</span>
           <Button
             onClick={() =>
-              addToCart(pizza.name, pizza.price, pizzaSize, pizzaType)
+              addToCart(
+                pizza.id,
+                pizza.name,
+                pizza.price,
+                pizzaSize,
+                pizzaType,
+                pizza.imageUrl
+              )
             }
           >
             <i className="fas fa-plus"></i>Добавить
