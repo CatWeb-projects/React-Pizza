@@ -1,6 +1,8 @@
 @import '~styles/mixins';
 @import '~styles/media-queries';
 
+@import url(//db.onlinewebfonts.com/c/478e653b5b1afb91b0d06091ed542563?family=Futura+New+Book);
+
 .cart-container {
   &__logo {
     height: 100px;
@@ -30,9 +32,12 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
     justify-items: center;
-    
+  }
+
+  &__header-wrapper, &__header-info {
     > div {
       font-size: rem(26px);
+      margin-left: rem(25px);
     }
   }
 
@@ -47,10 +52,27 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    font-size: rem(20px);
+    font-size: rem(13px);
+    font-family: "Futura New Book", sans-serif;
+
+    > div:first-child {
+      font-size: rem(20px);
+    }
 
     > div {
       margin: rem(5px 0);
+    }
+  }
+
+  &__delete {
+    font-size: rem(18px);
+    font-weight: 800;
+    color: #142cd9;
+    transition: 0.3s all;
+    cursor: pointer;
+
+    &:hover {
+      color: lighten(#142cd9, 30%);
     }
   }
 
@@ -75,6 +97,7 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
     justify-items: center;
+    font-family: "Futura New Book", sans-serif;
 
     > div {
       font-size: rem(26px);
@@ -91,5 +114,40 @@
     align-self: flex-end;
     margin-right: rem(40px);
     font-size: rem(30px);
+    font-family: "Futura New Book", sans-serif;
+  }
+
+  &__buttons {
+    max-width: 80%;
+    margin: rem(30px) auto;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.cart-button {
+  
+  max-width: rem(240px);
+  width: 100%;
+  transition: 0.3s all;
+  font-family: "Futura New Book", sans-serif;
+  font-size: rem(18px);
+  font-weight: 800;
+  color: #fff;
+}
+
+.cart-button-clear {
+  background-color: #ff851b;
+
+  &:hover {
+    background-color: lighten(#ff851b, 15%);
+  }
+}
+
+.cart-button-order {
+  background-color: #0d9948;
+
+  &:hover {
+    background-color: lighten(#0d9948, 15%);
   }
 }

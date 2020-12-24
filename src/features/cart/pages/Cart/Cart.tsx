@@ -1,17 +1,29 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
+import { OrderForm } from 'ui/molecules';
 import { Button, Logo } from 'ui/atoms';
 
 import './Cart.scss';
 
 export const Cart = () => {
   const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
+  const [order, setOrder] = React.useState<boolean>(false);
 
   console.log(cartPizzas);
 
   const clearCart = () => {
     setCardPizzas([]);
   };
+
+  const onDelete = React.useCallback(
+    (id: number) => {
+      setCardPizzas(cartPizzas.filter((filter) => filter.id !== id));
+    },
+    // eslint-disable-next-line
+    [cartPizzas]
+  );
+
+  const onOrder = () => setOrder((s) => !s);
 
   return (
     <div className="cart-container">
@@ -25,7 +37,7 @@ export const Cart = () => {
         </div>
 
         <div className="cart-content__header">
-          <div className="cart-content__header-wrapper">
+          <div className="cart-content__header-info">
             <div>Товар(ы)</div>
           </div>
           <div className="cart-content__header-wrapper">
@@ -46,7 +58,15 @@ export const Cart = () => {
                   <div className="cart-content__pizza-info">
                     <div className="cart-content__title">{pizza.name}</div>
                     <div className="cart-content__size">{pizza.size} см</div>
-                    <div className="cart-content__type">{pizza.type}</div>
+                    <div className="cart-content__type">
+                      {pizza.type === 0 ? 'Тонкое' : 'Традиционное'}
+                    </div>
+                    <div
+                      className="cart-content__delete"
+                      onClick={() => onDelete(pizza.id)}
+                    >
+                      Удалить
+                    </div>
                   </div>
                 </div>
 
@@ -65,7 +85,15 @@ export const Cart = () => {
           Итого: {cartPizzas.reduce((total, item) => total + item.price, 0)} ₽
         </div>
       </div>
-      <Button onClick={clearCart}>Clear Cart</Button>
+      <div className="cart-content__buttons">
+        <Button className="cart-button cart-button-clear" onClick={clearCart}>
+          Очистить корзину
+        </Button>
+        <Button className="cart-button cart-button-order" onClick={onOrder}>
+          Оформить заказ
+        </Button>
+      </div>
+      {order && <OrderForm />}
     </div>
   );
 };
