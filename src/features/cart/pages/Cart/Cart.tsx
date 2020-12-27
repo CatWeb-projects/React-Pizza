@@ -74,15 +74,22 @@ export const Cart = () => {
                   <div className="cart-content__total-price">
                     {pizza.price} ₽
                   </div>
-                  <div className="cart-content__quantity">1</div>
-                  <div className="cart-content__price">{pizza.price} ₽</div>
+                  <div className="cart-content__quantity">{pizza.quantity}</div>
+                  <div className="cart-content__price">
+                    {pizza.price * pizza.quantity} ₽
+                  </div>
                 </div>
               </div>
             ))}
         </div>
 
         <div className="cart-content__total">
-          Итого: {cartPizzas.reduce((total, item) => total + item.price, 0)} ₽
+          Итого:
+          {cartPizzas.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+          )}
+          ₽
         </div>
       </div>
       <div className="cart-content__buttons">

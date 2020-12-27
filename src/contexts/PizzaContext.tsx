@@ -22,11 +22,14 @@ interface CardPizza {
   size: number;
   type: number;
   imageUrl: string;
+  quantity: number;
 }
 
 interface Props {
   cartPizzas: CardPizza[];
+  quantity: number;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const defaultValue = {
@@ -39,7 +42,9 @@ const defaultValue = {
   category: 0,
   rating: 0,
   cartPizzas: [],
-  setCardPizzas: () => {}
+  quantity: 1,
+  setCardPizzas: () => {},
+  setQuantity: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -159,6 +164,7 @@ export const pizzas: Pizza[] = [
 
 export const ProviderContext = (props: ProviderProps) => {
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
+  const [quantity, setQuantity] = React.useState<number>(1);
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -173,7 +179,9 @@ export const ProviderContext = (props: ProviderProps) => {
 
   const { children } = props;
   return (
-    <PizzaContext.Provider value={{ cartPizzas, setCardPizzas }}>
+    <PizzaContext.Provider
+      value={{ cartPizzas, setCardPizzas, quantity, setQuantity }}
+    >
       {children}
     </PizzaContext.Provider>
   );

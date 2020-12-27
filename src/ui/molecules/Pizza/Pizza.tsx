@@ -18,23 +18,50 @@ interface Props {
 }
 
 export const Pizza: React.FC<Props> = ({ pizza }) => {
-  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
+  const { cartPizzas, setCardPizzas, quantity, setQuantity } = React.useContext(
+    PizzaContext
+  );
 
   const [saveId, setSaveId] = React.useState<number>();
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
 
   const addToCart = React.useCallback(
-    (id, name, price, size, type, imageUrl) => {
+    (id, name, price, size, type, imageUrl, count) => {
       if (size === 0) {
         return null;
       }
 
-      setCardPizzas([...cartPizzas, { id, name, price, size, type, imageUrl }]);
+      cartPizzas.filter((pizza) => {
+        if (name === pizza.name && size === pizza.size && type === pizza.type) {
+          console.log('if trigerred');
+          return setCardPizzas([
+            {
+              id,
+              name,
+              price,
+              size,
+              type,
+              imageUrl,
+              quantity: count
+            }
+          ]);
+        } else {
+          console.log('set card trigered');
+          setQuantity(1);
+          return cartPizzas;
+        }
+      });
+
+      setCardPizzas([
+        ...cartPizzas,
+        { id, name, price, size, type, imageUrl, quantity: quantity }
+      ]);
     },
     // eslint-disable-next-line
-    [cartPizzas]
+    [cartPizzas, quantity]
   );
+  console.log(quantity, 'this quantity');
   console.log(cartPizzas);
 
   const selectSize = React.useCallback((id: number, size: number) => {
@@ -103,12 +130,13 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
           <Button
             onClick={() =>
               addToCart(
-                pizza.id,
+                Math.round(Math.random() * 100000),
                 pizza.name,
                 pizza.price,
                 pizzaSize,
                 pizzaType,
-                pizza.imageUrl
+                pizza.imageUrl,
+                setQuantity((prev) => prev + 1)
               )
             }
           >
