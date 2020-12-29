@@ -15,7 +15,11 @@ export const Header = () => {
       <div className="header__cart">
         <Link to="/cart">
           <span>
-            {cartPizzas.reduce((total, item) => total + item.price, 0)}₽
+            {cartPizzas.reduce(
+              (total, item) => total + item.price * item.quantity,
+              0
+            )}
+            ₽
           </span>
 
           <span>

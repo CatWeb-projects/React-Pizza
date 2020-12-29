@@ -79,6 +79,8 @@
   &__title {
     max-width: rem(150px);
     text-align: center;
+    color: #0d9948;
+    text-decoration: underline;
   }
 
   &__img {
@@ -101,6 +103,22 @@
 
     > div {
       font-size: rem(26px);
+      display: flex;
+    }
+  }
+
+  .counter {
+    width: rem(30px);
+    height: rem(30px);
+    align-self: center;
+    color:#0d9948;
+    background-color: lighten(#ff851b, 15%);
+    font-size: rem(25px);
+    transition: 0.3s all;
+
+    &:hover {
+      color: lighten(#0d9948, 15%);
+      background-color:#ff851b;
     }
   }
 
@@ -112,6 +130,7 @@
 
   &__total {
     align-self: flex-end;
+    margin-top: rem(20px);
     margin-right: rem(40px);
     font-size: rem(30px);
     font-family: "Futura New Book", sans-serif;

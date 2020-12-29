@@ -25,6 +25,24 @@ export const Cart = () => {
 
   const onOrder = () => setOrder((s) => !s);
 
+  const Close = () => setOrder(false);
+
+  const minusQuantity = (id: number) => {
+    setCardPizzas((prevPizzas) =>
+      prevPizzas.map((pizza) =>
+        pizza.id === id ? { ...pizza, quantity: pizza.quantity - 1 } : pizza
+      )
+    );
+  };
+
+  const plusQuantity = (id: number) => {
+    setCardPizzas((prevPizzas) =>
+      prevPizzas.map((pizza) =>
+        pizza.id === id ? { ...pizza, quantity: pizza.quantity + 1 } : pizza
+      )
+    );
+  };
+
   return (
     <div className="cart-container">
       <div className="cart-container__logo">
@@ -74,7 +92,21 @@ export const Cart = () => {
                   <div className="cart-content__total-price">
                     {pizza.price} ₽
                   </div>
-                  <div className="cart-content__quantity">{pizza.quantity}</div>
+                  <div className="cart-content__quantity">
+                    <Button
+                      className="counter"
+                      onClick={() => minusQuantity(pizza.id)}
+                    >
+                      -
+                    </Button>
+                    {pizza.quantity}
+                    <Button
+                      className="counter"
+                      onClick={() => plusQuantity(pizza.id)}
+                    >
+                      +
+                    </Button>
+                  </div>
                   <div className="cart-content__price">
                     {pizza.price * pizza.quantity} ₽
                   </div>
@@ -100,7 +132,7 @@ export const Cart = () => {
           Оформить заказ
         </Button>
       </div>
-      {order && <OrderForm />}
+      {order && <OrderForm onClick={Close} />}
     </div>
   );
 };

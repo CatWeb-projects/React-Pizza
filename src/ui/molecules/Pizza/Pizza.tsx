@@ -18,53 +18,31 @@ interface Props {
 }
 
 export const Pizza: React.FC<Props> = ({ pizza }) => {
-  const { cartPizzas, setCardPizzas, quantity, setQuantity } = React.useContext(
-    PizzaContext
-  );
+  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
 
   const [saveId, setSaveId] = React.useState<number>();
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
 
   const addToCart = React.useCallback(
-    (id, name, price, size, type, imageUrl, count) => {
+    (id, name, price, size, type, imageUrl) => {
       if (size === 0) {
         return null;
       }
 
-      cartPizzas.filter((pizza) => {
-        if (name === pizza.name && size === pizza.size && type === pizza.type) {
-          console.log('if trigerred');
-          return setCardPizzas([
-            {
-              id,
-              name,
-              price,
-              size,
-              type,
-              imageUrl,
-              quantity: count
-            }
-          ]);
-        } else {
-          console.log('set card trigered');
-          setQuantity(1);
-          return cartPizzas;
-        }
-      });
-
       setCardPizzas([
         ...cartPizzas,
-        { id, name, price, size, type, imageUrl, quantity: quantity }
+        { id, name, price, size, type, imageUrl, quantity: 1 }
       ]);
     },
     // eslint-disable-next-line
-    [cartPizzas, quantity]
+    [cartPizzas]
   );
-  console.log(quantity, 'this quantity');
+
+  // console.log(pizzaQuantity, 'this quantity');
   console.log(cartPizzas);
 
-  const selectSize = React.useCallback((id: number, size: number) => {
+  const selectSize = (id: number, size: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -73,9 +51,9 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
       }
       return null;
     });
-  }, []);
+  };
 
-  const selectCakeType = React.useCallback((id: number, type: number) => {
+  const selectCakeType = (id: number, type: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -84,7 +62,7 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
       }
       return null;
     });
-  }, []);
+  };
 
   return (
     pizza && (
@@ -135,8 +113,7 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
                 pizza.price,
                 pizzaSize,
                 pizzaType,
-                pizza.imageUrl,
-                setQuantity((prev) => prev + 1)
+                pizza.imageUrl
               )
             }
           >
