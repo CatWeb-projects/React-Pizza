@@ -30,19 +30,31 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
         return null;
       }
 
-      setCardPizzas([
-        ...cartPizzas,
-        { id, name, price, size, type, imageUrl, quantity: 1 }
-      ]);
+      setCardPizzas((prevPizzas) =>
+        prevPizzas.map(
+          (pizza) =>
+            pizza.name === name && pizza.size === size
+              ? {
+                  ...pizza,
+                  quantity: pizza.quantity + 1
+                }
+              : pizza
+          // console.log(prevPizzas, 'pizza map')
+        )
+      );
+
+      // setCardPizzas([
+      //   ...cartPizzas,
+      //   { id, name, price, size, type, imageUrl, quantity: 1 }
+      // ]);
     },
     // eslint-disable-next-line
     [cartPizzas]
   );
 
-  // console.log(pizzaQuantity, 'this quantity');
   console.log(cartPizzas);
 
-  const selectSize = (id: number, size: number) => {
+  const selectSize = React.useCallback((id: number, size: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -51,9 +63,9 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
       }
       return null;
     });
-  };
+  }, []);
 
-  const selectCakeType = (id: number, type: number) => {
+  const selectCakeType = React.useCallback((id: number, type: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
         setSaveId(pizza.id);
@@ -62,7 +74,7 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
       }
       return null;
     });
-  };
+  }, []);
 
   return (
     pizza && (

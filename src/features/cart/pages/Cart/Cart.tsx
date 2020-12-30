@@ -30,7 +30,12 @@ export const Cart = () => {
   const minusQuantity = (id: number) => {
     setCardPizzas((prevPizzas) =>
       prevPizzas.map((pizza) =>
-        pizza.id === id ? { ...pizza, quantity: pizza.quantity - 1 } : pizza
+        pizza.id === id
+          ? {
+              ...pizza,
+              quantity: pizza.quantity === 1 ? 1 : pizza.quantity - 1
+            }
+          : pizza
       )
     );
   };
@@ -38,7 +43,12 @@ export const Cart = () => {
   const plusQuantity = (id: number) => {
     setCardPizzas((prevPizzas) =>
       prevPizzas.map((pizza) =>
-        pizza.id === id ? { ...pizza, quantity: pizza.quantity + 1 } : pizza
+        pizza.id === id
+          ? {
+              ...pizza,
+              quantity: pizza.quantity === 20 ? 20 : pizza.quantity + 1
+            }
+          : pizza
       )
     );
   };
