@@ -30,26 +30,37 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
         return null;
       }
 
-      setCardPizzas((prevPizzas) =>
-        prevPizzas.map(
-          (pizza) =>
-            pizza.name === name && pizza.size === size
-              ? {
-                  ...pizza,
-                  quantity: pizza.quantity + 1
-                }
-              : pizza
-          // console.log(prevPizzas, 'pizza map')
-        )
-      );
+      if (cartPizzas.find((item) => item.name === name && item.size === size)) {
+        console.log('quantity trigger');
+        setCardPizzas(
+          cartPizzas.map((pizza) => ({
+            ...pizza,
+            quantity: pizza.quantity + 1
+          }))
+        );
+      } else {
+        console.log('array trigger');
+        setCardPizzas([
+          ...cartPizzas,
+          { id, name, price, size, type, imageUrl, quantity: 1 }
+        ]);
+      }
 
-      // setCardPizzas([
-      //   ...cartPizzas,
-      //   { id, name, price, size, type, imageUrl, quantity: 1 }
-      // ]);
+      // setCardPizzas((prevPizzas) =>
+      //   prevPizzas.map(
+      //     (pizza) =>
+      //       pizza.name === name && pizza.size === size
+      //         ? {
+      //             ...pizza,
+      //             quantity: pizza.quantity + 1
+      //           }
+      //         : pizza
+      //     // console.log(prevPizzas, 'pizza map')
+      //   )
+      // );
     },
     // eslint-disable-next-line
-    [cartPizzas]
+    [cartPizzas, setCardPizzas]
   );
 
   console.log(cartPizzas);
