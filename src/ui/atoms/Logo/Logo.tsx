@@ -6,7 +6,7 @@ export const Logo = () => {
     <div className="header__logo-container">
       <div className="header__logo">
         <Link to="/">
-          <img src="pizza-logo.svg" alt="pizza" />
+          <img src="/images/pizza-logo.svg" alt="pizza" />
         </Link>
       </div>
       <div className="header__logo-info">

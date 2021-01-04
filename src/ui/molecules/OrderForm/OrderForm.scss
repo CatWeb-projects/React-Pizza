@@ -18,6 +18,29 @@
     padding: rem(30px);
     border: rem(2px) solid #fff;
     color: #e0e0e0;
+    position: relative;
   }
 
+  &__form-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__img {
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: rem(10px);
+    right: 0;
+  }
+
+  .close {
+    width: rem(30px);
+    height: rem(30px);
+  }
 }

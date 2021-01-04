@@ -8,7 +8,11 @@ interface Props {
   className?: string;
 }
 
-export const Button: React.FC<Props> = ({ children, onClick, className }) => {
+export const Button: React.FC<Props> = ({
+  children,
+  onClick,
+  className = ''
+}) => {
   return (
     <button
       className={`categories-button ${className}`}

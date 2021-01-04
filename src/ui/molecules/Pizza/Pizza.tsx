@@ -51,8 +51,6 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
     [cartPizzas]
   );
 
-  console.log(cartPizzas);
-
   const selectSize = React.useCallback((id: number, size: number) => {
     pizzas.map((pizza) => {
       if (pizza.id === id) {
