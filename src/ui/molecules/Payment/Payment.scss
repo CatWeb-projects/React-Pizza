@@ -1,0 +1,50 @@
+@import '~styles/mixins';
+@import '~styles/media-queries';
+
+.payment-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    width: 70%;
+    padding: rem(20px);
+    border: none;
+    border-radius: rem(10px);
+    color: #65f27d;
+    position: relative;
+    background-color: #1c4b57;
+  }
+
+  &__cards-holder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: minmax(300px, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+
+  &__cards {
+    border: rem(2px) solid #fff;
+    background-color: #fff;
+    border-radius: rem(10px);
+    padding: rem(10px);cursor: pointer;
+
+    svg {
+      font-size: 150px;
+      fill: #67aefc;
+    }
+  }
+
+  .card-is-active {
+    border-color:#f2ca1f;
+    background-color: #f2ca1f;
+  }
+}

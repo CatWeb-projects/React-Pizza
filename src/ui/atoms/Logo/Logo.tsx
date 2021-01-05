@@ -9,6 +9,7 @@ export const Logo = () => {
           <img src="/images/pizza-logo.svg" alt="pizza" />
         </Link>
       </div>
+
       <div className="header__logo-info">
         <span>React Pizza</span>
         <span>Самая вкусная пицца во вселенной</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
-import { OrderForm } from 'ui/molecules';
+import { OrderForm } from 'ui/organisms';
+import { Payment } from 'ui/molecules';
 import { Button, Logo } from 'ui/atoms';
 
 import './Cart.scss';
@@ -8,8 +9,7 @@ import './Cart.scss';
 export const Cart = () => {
   const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
   const [order, setOrder] = React.useState<boolean>(false);
-
-  console.log(cartPizzas);
+  const [payment, setPayment] = React.useState<boolean>(false);
 
   const clearCart = () => {
     setCardPizzas([]);
@@ -24,6 +24,10 @@ export const Cart = () => {
   );
 
   const onOrder = () => setOrder((s) => !s);
+  const onPayment = () => {
+    setPayment((s) => !s);
+    setOrder(false);
+  };
 
   const Close = () => setOrder(false);
 
@@ -83,12 +87,16 @@ export const Cart = () => {
                   <div className="cart-content__img">
                     <img src={pizza.imageUrl} alt={pizza.imageUrl} />
                   </div>
+
                   <div className="cart-content__pizza-info">
                     <div className="cart-content__title">{pizza.name}</div>
+
                     <div className="cart-content__size">{pizza.size} см</div>
+
                     <div className="cart-content__type">
                       {pizza.type === 0 ? 'Тонкое' : 'Традиционное'}
                     </div>
+
                     <div
                       className="cart-content__delete"
                       onClick={() => onDelete(pizza.id)}
@@ -102,6 +110,7 @@ export const Cart = () => {
                   <div className="cart-content__total-price">
                     {pizza.price} ₽
                   </div>
+
                   <div className="cart-content__quantity">
                     <Button
                       className="counter"
@@ -109,6 +118,7 @@ export const Cart = () => {
                     >
                       -
                     </Button>
+
                     {pizza.quantity}
                     <Button
                       className="counter"
@@ -117,6 +127,7 @@ export const Cart = () => {
                       +
                     </Button>
                   </div>
+
                   <div className="cart-content__price">
                     {pizza.price * pizza.quantity} ₽
                   </div>
@@ -134,6 +145,7 @@ export const Cart = () => {
           ₽
         </div>
       </div>
+
       <div className="cart-content__buttons">
         <Button className="cart-button cart-button-clear" onClick={clearCart}>
           Очистить корзину
@@ -142,7 +154,10 @@ export const Cart = () => {
           Оформить заказ
         </Button>
       </div>
-      {order && <OrderForm onClick={Close} />}
+
+      {order && <OrderForm onClose={Close} onPayment={onPayment} />}
+
+      {payment && <Payment />}
     </div>
   );
 };
