@@ -1,24 +1,26 @@
+import { PizzaContext } from 'contexts/PizzaContext';
 import React from 'react';
-import { Icon } from 'ui/atoms';
+import { Button, Icon } from 'ui/atoms';
 
 import './Payment.scss';
 
 export type CardTypes = 'visa' | 'master' | 'maestro' | '';
 
 interface Props {
-  active?: any;
+  onClose?: () => void;
+  onPrevStep?: () => void;
+  onNextStep?: () => void;
 }
 
-export const Payment: React.FC<Props> = ({ active }) => {
-  const [type, setType] = React.useState<CardTypes>('');
+export const Payment: React.FC<Props> = ({
+  onClose,
+  onPrevStep,
+  onNextStep
+}) => {
+  const { type, setType } = React.useContext(PizzaContext);
 
-  const selectCard = React.useCallback(
-    (newType: CardTypes) =>
-      setType((prevType) => (newType === prevType ? '' : newType)),
-    []
-  );
-
-  console.log(type);
+  const selectCard = (newType: CardTypes) =>
+    setType((prevType) => (newType === prevType ? '' : newType));
 
   return (
     <div className="payment-container">
@@ -48,6 +50,17 @@ export const Payment: React.FC<Props> = ({ active }) => {
           >
             <Icon className="maestro" type="maestro" />
           </div>
+        </div>
+        <div className="payment-container__buttons">
+          <Button className="close" onClick={onClose}>
+            Закрыть
+          </Button>
+          <Button className="prev" onClick={onPrevStep}>
+            Назад
+          </Button>
+          <Button className="next" onClick={onNextStep}>
+            Далее
+          </Button>
         </div>
       </div>
     </div>

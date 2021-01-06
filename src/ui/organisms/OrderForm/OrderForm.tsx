@@ -6,9 +6,19 @@ import './OrderForm.scss';
 interface Props {
   onClose?: () => void;
   onPayment?: () => void;
+  form: {
+    name: string;
+    phone: number;
+    email: string;
+    address: string;
+    apartment: number;
+    entrance: number;
+    floor: number;
+    code: number;
+  };
 }
 
-export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
+export const OrderForm: React.FC<Props> = ({ onClose, onPayment, form }) => {
   return (
     <div className="order-container">
       <div className="order-container__wrapper">
@@ -20,7 +30,7 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
           <form action="">
             <div className="order-container__form-group">
               <label htmlFor="name">Имя*</label>
-              <input type="text" placeholder="Имя*" />
+              <input type="text" placeholder="Имя*" value={form.name} />
             </div>
 
             <div className="order-container__form-group">
@@ -61,7 +71,7 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
             </div>
 
             <div className="order-container__next-div">
-              <Button onClick={onPayment} className="next">
+              <Button className="next" onClick={onPayment}>
                 Тип Оплаты
               </Button>
             </div>

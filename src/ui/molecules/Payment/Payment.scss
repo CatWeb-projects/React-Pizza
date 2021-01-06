@@ -47,4 +47,41 @@
     border-color:#f2ca1f;
     background-color: #f2ca1f;
   }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: rem(0 20px);
+      max-width: rem(240px);
+      width: 100%;
+      color: #fff;
+      font-size: rem(20px);
+    }
+  }
+
+  .close {
+    background-color: #ff851b;
+
+    &:hover {
+      background-color: lighten(#ff851b, 15%);
+    }
+  }
+
+  .prev {
+    background-color: #43a0f9;
+
+    &:hover {
+      background-color: lighten(#43a0f9, 15%);
+    }
+  }
+
+  .next {
+    background-color: #0d9948;
+
+    &:hover {
+      background-color: lighten(#0d9948, 15%);
+    }
+  }
 }

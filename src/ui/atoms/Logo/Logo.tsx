@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'estafette-router';
+import { Icon } from 'ui/atoms';
 
 export const Logo = () => {
   return (
     <div className="header__logo-container">
       <div className="header__logo">
         <Link to="/">
-          <img src="/images/pizza-logo.svg" alt="pizza" />
+          <Icon type="pizza-logo" />
         </Link>
       </div>
 

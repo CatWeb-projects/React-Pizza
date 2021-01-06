@@ -1,15 +1,18 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
 import { OrderForm } from 'ui/organisms';
-import { Payment } from 'ui/molecules';
+import { Checkout, Payment } from 'ui/molecules';
 import { Button, Logo } from 'ui/atoms';
 
 import './Cart.scss';
 
 export const Cart = () => {
-  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
+  const { cartPizzas, setCardPizzas, form, setForm } = React.useContext(
+    PizzaContext
+  );
   const [order, setOrder] = React.useState<boolean>(false);
   const [payment, setPayment] = React.useState<boolean>(false);
+  const [checkout, setCheckout] = React.useState<boolean>(false);
 
   const clearCart = () => {
     setCardPizzas([]);
@@ -24,12 +27,67 @@ export const Cart = () => {
   );
 
   const onOrder = () => setOrder((s) => !s);
-  const onPayment = () => {
+
+  const onPayment = (
+    name: string,
+    phone: number,
+    email: string,
+    address: string,
+    apartment: number,
+    entrance: number,
+    floor: number,
+    code: number
+  ) => {
+    // if (
+    //   form.name === undefined ||
+    //   form.phone === undefined ||
+    //   form.address === undefined ||
+    //   form.apartment === undefined
+    // ) {
+    //   return null;
+    // }
+
+    setForm({
+      ...form,
+      name,
+      phone,
+      email,
+      address,
+      apartment,
+      entrance,
+      floor,
+      code
+    });
     setPayment((s) => !s);
     setOrder(false);
   };
 
-  const Close = () => setOrder(false);
+  console.log(form);
+  console.log(order);
+  console.log(payment);
+
+  // const onConfirmation = () => {
+  //   setConfirmation(false);
+  //   setOrder(false);
+  //   setPayment(false);
+  // };
+
+  const onClose = () => {
+    setCheckout(false);
+    setOrder(false);
+    setPayment(false);
+  };
+
+  const onPrevStep = () => {
+    setOrder(true);
+    setPayment(false);
+  };
+
+  const onNextStep = () => {
+    setCheckout((s) => !s);
+    setOrder(false);
+    setPayment(false);
+  };
 
   const minusQuantity = (id: number) => {
     setCardPizzas((prevPizzas) =>
@@ -155,9 +213,34 @@ export const Cart = () => {
         </Button>
       </div>
 
-      {order && <OrderForm onClose={Close} onPayment={onPayment} />}
+      {order && (
+        <OrderForm
+          onClose={onClose}
+          form={form}
+          onPayment={() =>
+            onPayment(
+              form.name,
+              form.phone,
+              form.email,
+              form.address,
+              form.apartment,
+              form.entrance,
+              form.floor,
+              form.code
+            )
+          }
+        />
+      )}
 
-      {payment && <Payment />}
+      {payment && (
+        <Payment
+          onClose={onClose}
+          onPrevStep={onPrevStep}
+          onNextStep={onNextStep}
+        />
+      )}
+
+      {checkout && <Checkout />}
     </div>
   );
 };

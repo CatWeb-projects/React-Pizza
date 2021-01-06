@@ -9,6 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    svg {
+      font-size: rem(40px);
+    }
   }
 }
 

@@ -25,9 +25,24 @@ interface CardPizza {
   quantity: number;
 }
 
+interface Form {
+  name: string;
+  phone: number;
+  email: string;
+  address: string;
+  apartment: number;
+  entrance: number;
+  floor: number;
+  code: number;
+}
+
 interface Props {
   cartPizzas: CardPizza[];
+  type: string;
+  form: Form;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
+  setType: React.Dispatch<React.SetStateAction<string>>;
+  setForm: React.Dispatch<React.SetStateAction<Form>>;
 }
 
 const defaultValue = {
@@ -40,7 +55,20 @@ const defaultValue = {
   category: 0,
   rating: 0,
   cartPizzas: [],
-  setCardPizzas: () => {}
+  type: '',
+  form: {
+    name: '',
+    phone: 0,
+    email: '',
+    address: '',
+    apartment: 0,
+    entrance: 0,
+    floor: 0,
+    code: 0
+  },
+  setCardPizzas: () => {},
+  setType: () => {},
+  setForm: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -160,6 +188,8 @@ export const pizzas: Pizza[] = [
 
 export const ProviderContext = (props: ProviderProps) => {
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
+  const [type, setType] = React.useState<string>('');
+  const [form, setForm] = React.useState<any>({});
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -174,7 +204,11 @@ export const ProviderContext = (props: ProviderProps) => {
 
   const values = {
     cartPizzas,
-    setCardPizzas
+    setCardPizzas,
+    type,
+    setType,
+    form,
+    setForm
   };
 
   const { children } = props;
