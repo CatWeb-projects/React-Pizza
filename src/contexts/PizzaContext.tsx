@@ -202,6 +202,17 @@ export const ProviderContext = (props: ProviderProps) => {
     localStorage.setItem('cart-products', JSON.stringify(cartPizzas));
   }, [cartPizzas]);
 
+  React.useEffect(() => {
+    const data = localStorage.getItem('get-form');
+    if (data) {
+      setForm(JSON.parse(data));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('get-form', JSON.stringify(form));
+  }, [form]);
+
   const values = {
     cartPizzas,
     setCardPizzas,

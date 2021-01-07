@@ -63,8 +63,6 @@ export const Cart = () => {
   };
 
   console.log(form);
-  console.log(order);
-  console.log(payment);
 
   // const onConfirmation = () => {
   //   setConfirmation(false);

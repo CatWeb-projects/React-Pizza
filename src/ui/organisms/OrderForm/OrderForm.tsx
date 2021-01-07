@@ -1,4 +1,5 @@
 import React from 'react';
+import { PizzaContext } from 'contexts/PizzaContext';
 import { Button } from 'ui/atoms';
 
 import './OrderForm.scss';
@@ -18,7 +19,41 @@ interface Props {
   };
 }
 
-export const OrderForm: React.FC<Props> = ({ onClose, onPayment, form }) => {
+export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
+  const { form, setForm } = React.useContext(PizzaContext);
+
+  const onAddName = (event: { target: { value: any } }) => {
+    setForm({ ...form, name: event.target.value });
+  };
+
+  const onAddPhone = (event: { target: { value: any } }) => {
+    setForm({ ...form, phone: Number(event.target.value) });
+  };
+
+  const onAddEmail = (event: { target: { value: any } }) => {
+    setForm({ ...form, email: event.target.value });
+  };
+
+  const onAddAddress = (event: { target: { value: any } }) => {
+    setForm({ ...form, address: event.target.value });
+  };
+
+  const onAddApartment = (event: { target: { value: any } }) => {
+    setForm({ ...form, apartment: Number(event.target.value) });
+  };
+
+  const onAddEntrance = (event: { target: { value: any } }) => {
+    setForm({ ...form, entrance: Number(event.target.value) });
+  };
+
+  const onAddFloor = (event: { target: { value: any } }) => {
+    setForm({ ...form, floor: Number(event.target.value) });
+  };
+
+  const onAddCode = (event: { target: { value: any } }) => {
+    setForm({ ...form, code: Number(event.target.value) });
+  };
+
   return (
     <div className="order-container">
       <div className="order-container__wrapper">
@@ -27,46 +62,90 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment, form }) => {
         </div>
 
         <div className="order-container__form-info">
-          <form action="">
+          <form onSubmit={onPayment}>
             <div className="order-container__form-group">
               <label htmlFor="name">Имя*</label>
-              <input type="text" placeholder="Имя*" value={form.name} />
+              <input
+                type="text"
+                placeholder="Имя*"
+                value={form.name === undefined || null ? '' : form.name}
+                onChange={onAddName}
+              />
             </div>
 
             <div className="order-container__form-group">
               <label htmlFor="phone">Телефон*</label>
-              <input type="text" placeholder="Телефон*" />
+              <input
+                type="text"
+                placeholder="Телефон*"
+                value={form.phone === undefined || null ? 0 : form.phone}
+                onChange={onAddPhone}
+              />
             </div>
 
             <div className="order-container__form-group">
               <label htmlFor="email">Email</label>
-              <input type="text" placeholder="Email" />
+              <input
+                type="text"
+                placeholder="Email"
+                value={form.email === undefined || null ? '' : form.email}
+                onChange={onAddEmail}
+              />
             </div>
 
             <div className="order-container__form-group">
               <label htmlFor="address">Адрес*</label>
-              <input type="text" placeholder="Адрес*" />
+              <input
+                type="text"
+                placeholder="Адрес*"
+                value={form.address === undefined || null ? '' : form.address}
+                onChange={onAddAddress}
+              />
             </div>
 
             <div className="order-container__apartment">
               <div className="order-container__apartment-wrapper">
                 <label htmlFor="apartment">Квартира/Офис*</label>
-                <input type="text" placeholder="Квартира/Офис*" />
+                <input
+                  type="text"
+                  placeholder="Квартира/Офис*"
+                  value={
+                    form.apartment === undefined || null ? 0 : form.apartment
+                  }
+                  onChange={onAddApartment}
+                />
               </div>
 
               <div className="order-container__apartment-wrapper">
                 <label htmlFor="entrance">Подъезд</label>
-                <input type="text" placeholder="Подъезд" />
+                <input
+                  type="text"
+                  placeholder="Подъезд"
+                  value={
+                    form.entrance === undefined || null ? 0 : form.entrance
+                  }
+                  onChange={onAddEntrance}
+                />
               </div>
 
               <div className="order-container__apartment-wrapper">
                 <label htmlFor="floor">Этаж</label>
-                <input type="text" placeholder="Этаж" />
+                <input
+                  type="text"
+                  placeholder="Этаж"
+                  value={form.floor === undefined || null ? 0 : form.floor}
+                  onChange={onAddFloor}
+                />
               </div>
 
               <div className="order-container__apartment-wrapper">
                 <label htmlFor="code">Код</label>
-                <input type="text" placeholder="Код" />
+                <input
+                  type="text"
+                  placeholder="Код"
+                  value={form.code === undefined || null ? 0 : form.code}
+                  onChange={onAddCode}
+                />
               </div>
             </div>
 
