@@ -1,5 +1,5 @@
-import { PizzaContext } from 'contexts/PizzaContext';
 import React from 'react';
+import { PizzaContext } from 'contexts/PizzaContext';
 import { Button, Icon } from 'ui/atoms';
 
 import './Payment.scss';

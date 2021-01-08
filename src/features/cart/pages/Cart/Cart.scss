@@ -150,7 +150,6 @@
 }
 
 .cart-button {
-  
   max-width: rem(240px);
   width: 100%;
   transition: 0.3s all;
@@ -158,6 +157,12 @@
   font-size: rem(18px);
   font-weight: 800;
   color: #fff;
+
+  svg {
+    margin-right: rem(5px);
+    fill: #fff;
+    font-size: rem(18px);
+  }
 }
 
 .cart-button-clear {

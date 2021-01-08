@@ -94,9 +94,11 @@
   }
 
   &__next-div {
-    display: flex;
-    justify-content: center;
-    margin-top: rem(50px);
+    // display: flex;
+    // justify-content: center;
+    text-align: center;
+    margin-top: rem(0);
+    color: #fff;
   }
 
   .next {
@@ -104,6 +106,7 @@
     background-color: #65f27d;
     color: #fff;
     transition: 0.3s all;
+    margin-top: rem(10px);
 
     &:hover {
       background-color: darken(#65f27d, 30%);

@@ -6,53 +6,76 @@ import './OrderForm.scss';
 
 interface Props {
   onClose?: () => void;
-  onPayment?: () => void;
-  form: {
-    name: string;
-    phone: number;
-    email: string;
-    address: string;
-    apartment: number;
-    entrance: number;
-    floor: number;
-    code: number;
-  };
+  onCashPayment?: () => void;
+  onCardPayment?: () => void;
 }
 
-export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
+export const OrderForm: React.FC<Props> = ({
+  onClose,
+  onCashPayment,
+  onCardPayment
+}) => {
   const { form, setForm } = React.useContext(PizzaContext);
 
-  const onAddName = (event: { target: { value: any } }) => {
-    setForm({ ...form, name: event.target.value });
+  const onAddFormInfo = (event: any) => {
+    const { name, value } = event.target;
+
+    setForm({
+      ...form,
+      [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
+    });
   };
 
-  const onAddPhone = (event: { target: { value: any } }) => {
-    setForm({ ...form, phone: Number(event.target.value) });
-  };
+  console.log(form);
 
-  const onAddEmail = (event: { target: { value: any } }) => {
-    setForm({ ...form, email: event.target.value });
-  };
+  //A longer method I tried before
 
-  const onAddAddress = (event: { target: { value: any } }) => {
-    setForm({ ...form, address: event.target.value });
-  };
+  // const onAddName = (event: { target: { value: string } }) => {
+  //   setForm({ ...form, name: event.target.value });
+  // };
 
-  const onAddApartment = (event: { target: { value: any } }) => {
-    setForm({ ...form, apartment: Number(event.target.value) });
-  };
+  // const onAddPhone = (event: { target: { value: number | string } }) => {
+  //   setForm({
+  //     ...form,
+  //     phone: form.phone === 0 ? '' : Number(event.target.value)
+  //   });
+  // };
 
-  const onAddEntrance = (event: { target: { value: any } }) => {
-    setForm({ ...form, entrance: Number(event.target.value) });
-  };
+  // const onAddEmail = (event: { target: { value: any } }) => {
+  //   setForm({ ...form, email: event.target.value });
+  // };
 
-  const onAddFloor = (event: { target: { value: any } }) => {
-    setForm({ ...form, floor: Number(event.target.value) });
-  };
+  // const onAddAddress = (event: { target: { value: any } }) => {
+  //   setForm({ ...form, address: event.target.value });
+  // };
 
-  const onAddCode = (event: { target: { value: any } }) => {
-    setForm({ ...form, code: Number(event.target.value) });
-  };
+  // const onAddApartment = (event: { target: { value: number | string } }) => {
+  //   setForm({
+  //     ...form,
+  //     apartment: form.apartment === 0 ? '' : Number(event.target.value)
+  //   });
+  // };
+
+  // const onAddEntrance = (event: { target: { value: any } }) => {
+  //   setForm({
+  //     ...form,
+  //     entrance: form.entrance === 0 ? '' : Number(event.target.value)
+  //   });
+  // };
+
+  // const onAddFloor = (event: { target: { value: any } }) => {
+  //   setForm({
+  //     ...form,
+  //     floor: form.floor === 0 ? '' : Number(event.target.value)
+  //   });
+  // };
+
+  // const onAddCode = (event: { target: { value: any } }) => {
+  //   setForm({
+  //     ...form,
+  //     code: form.code === 0 ? '' : Number(event.target.value)
+  //   });
+  // };
 
   return (
     <div className="order-container">
@@ -62,14 +85,15 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
         </div>
 
         <div className="order-container__form-info">
-          <form onSubmit={onPayment}>
+          <form onSubmit={() => onAddFormInfo}>
             <div className="order-container__form-group">
               <label htmlFor="name">Имя*</label>
               <input
                 type="text"
                 placeholder="Имя*"
+                name="name"
                 value={form.name === undefined || null ? '' : form.name}
-                onChange={onAddName}
+                onChange={onAddFormInfo}
               />
             </div>
 
@@ -78,8 +102,9 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
               <input
                 type="text"
                 placeholder="Телефон*"
-                value={form.phone === undefined || null ? 0 : form.phone}
-                onChange={onAddPhone}
+                name="phone"
+                value={form.phone === undefined || null ? '' : form.phone}
+                onChange={onAddFormInfo}
               />
             </div>
 
@@ -88,8 +113,9 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
               <input
                 type="text"
                 placeholder="Email"
+                name="email"
                 value={form.email === undefined || null ? '' : form.email}
-                onChange={onAddEmail}
+                onChange={onAddFormInfo}
               />
             </div>
 
@@ -98,8 +124,9 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
               <input
                 type="text"
                 placeholder="Адрес*"
+                name="address"
                 value={form.address === undefined || null ? '' : form.address}
-                onChange={onAddAddress}
+                onChange={onAddFormInfo}
               />
             </div>
 
@@ -109,10 +136,11 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
                 <input
                   type="text"
                   placeholder="Квартира/Офис*"
+                  name="apartment"
                   value={
-                    form.apartment === undefined || null ? 0 : form.apartment
+                    form.apartment === undefined || null ? '' : form.apartment
                   }
-                  onChange={onAddApartment}
+                  onChange={onAddFormInfo}
                 />
               </div>
 
@@ -121,10 +149,11 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
                 <input
                   type="text"
                   placeholder="Подъезд"
+                  name="entrance"
                   value={
-                    form.entrance === undefined || null ? 0 : form.entrance
+                    form.entrance === undefined || null ? '' : form.entrance
                   }
-                  onChange={onAddEntrance}
+                  onChange={onAddFormInfo}
                 />
               </div>
 
@@ -133,8 +162,9 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
                 <input
                   type="text"
                   placeholder="Этаж"
-                  value={form.floor === undefined || null ? 0 : form.floor}
-                  onChange={onAddFloor}
+                  name="floor"
+                  value={form.floor === undefined || null ? '' : form.floor}
+                  onChange={onAddFormInfo}
                 />
               </div>
 
@@ -143,16 +173,31 @@ export const OrderForm: React.FC<Props> = ({ onClose, onPayment }) => {
                 <input
                   type="text"
                   placeholder="Код"
-                  value={form.code === undefined || null ? 0 : form.code}
-                  onChange={onAddCode}
+                  name="code"
+                  value={form.code === undefined || null ? '' : form.code}
+                  onChange={onAddFormInfo}
                 />
               </div>
             </div>
 
             <div className="order-container__next-div">
-              <Button className="next" onClick={onPayment}>
-                Тип Оплаты
-              </Button>
+              <h5>Тип Оплаты</h5>
+              <div className="order-container__type-of-payment">
+                <Button
+                  className="next"
+                  generalType="submit"
+                  onClick={onCashPayment}
+                >
+                  Наличные
+                </Button>
+                <Button
+                  className="next"
+                  generalType="submit"
+                  onClick={onCardPayment}
+                >
+                  Карточкой онлайн
+                </Button>
+              </div>
             </div>
           </form>
 

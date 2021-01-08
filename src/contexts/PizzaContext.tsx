@@ -27,13 +27,13 @@ interface CardPizza {
 
 interface Form {
   name: string;
-  phone: number;
+  phone: number | string;
   email: string;
   address: string;
-  apartment: number;
-  entrance: number;
-  floor: number;
-  code: number;
+  apartment: number | string;
+  entrance: number | string;
+  floor: number | string;
+  code: number | string;
 }
 
 interface Props {
@@ -58,13 +58,13 @@ const defaultValue = {
   type: '',
   form: {
     name: '',
-    phone: 0,
+    phone: '',
     email: '',
     address: '',
-    apartment: 0,
-    entrance: 0,
-    floor: 0,
-    code: 0
+    apartment: '',
+    entrance: '',
+    floor: '',
+    code: ''
   },
   setCardPizzas: () => {},
   setType: () => {},

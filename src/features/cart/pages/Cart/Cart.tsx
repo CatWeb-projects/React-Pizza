@@ -1,18 +1,16 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
 import { OrderForm } from 'ui/organisms';
-import { Checkout, Payment } from 'ui/molecules';
-import { Button, Logo } from 'ui/atoms';
+import { Confirmation, Payment } from 'ui/molecules';
+import { Button, Icon, Logo } from 'ui/atoms';
 
 import './Cart.scss';
 
 export const Cart = () => {
-  const { cartPizzas, setCardPizzas, form, setForm } = React.useContext(
-    PizzaContext
-  );
+  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
   const [order, setOrder] = React.useState<boolean>(false);
   const [payment, setPayment] = React.useState<boolean>(false);
-  const [checkout, setCheckout] = React.useState<boolean>(false);
+  const [confirmation, setConfirmation] = React.useState<boolean>(false);
 
   const clearCart = () => {
     setCardPizzas([]);
@@ -28,50 +26,18 @@ export const Cart = () => {
 
   const onOrder = () => setOrder((s) => !s);
 
-  const onPayment = (
-    name: string,
-    phone: number,
-    email: string,
-    address: string,
-    apartment: number,
-    entrance: number,
-    floor: number,
-    code: number
-  ) => {
-    // if (
-    //   form.name === undefined ||
-    //   form.phone === undefined ||
-    //   form.address === undefined ||
-    //   form.apartment === undefined
-    // ) {
-    //   return null;
-    // }
+  const onCashPayment = () => {
+    setConfirmation((s) => !s);
+    setOrder(false);
+  };
 
-    setForm({
-      ...form,
-      name,
-      phone,
-      email,
-      address,
-      apartment,
-      entrance,
-      floor,
-      code
-    });
+  const onCardPayment = () => {
     setPayment((s) => !s);
     setOrder(false);
   };
 
-  console.log(form);
-
-  // const onConfirmation = () => {
-  //   setConfirmation(false);
-  //   setOrder(false);
-  //   setPayment(false);
-  // };
-
   const onClose = () => {
-    setCheckout(false);
+    setConfirmation(false);
     setOrder(false);
     setPayment(false);
   };
@@ -82,9 +48,12 @@ export const Cart = () => {
   };
 
   const onNextStep = () => {
-    setCheckout((s) => !s);
     setOrder(false);
     setPayment(false);
+  };
+
+  const onCheckout = () => {
+    setConfirmation(false);
   };
 
   const minusQuantity = (id: number) => {
@@ -204,9 +173,11 @@ export const Cart = () => {
 
       <div className="cart-content__buttons">
         <Button className="cart-button cart-button-clear" onClick={clearCart}>
+          <Icon type="trash" />
           Очистить корзину
         </Button>
         <Button className="cart-button cart-button-order" onClick={onOrder}>
+          <Icon type="order" />
           Оформить заказ
         </Button>
       </div>
@@ -214,19 +185,8 @@ export const Cart = () => {
       {order && (
         <OrderForm
           onClose={onClose}
-          form={form}
-          onPayment={() =>
-            onPayment(
-              form.name,
-              form.phone,
-              form.email,
-              form.address,
-              form.apartment,
-              form.entrance,
-              form.floor,
-              form.code
-            )
-          }
+          onCardPayment={onCardPayment}
+          onCashPayment={onCashPayment}
         />
       )}
 
@@ -238,7 +198,7 @@ export const Cart = () => {
         />
       )}
 
-      {checkout && <Checkout />}
+      {confirmation && <Confirmation onCheckout={onCheckout} />}
     </div>
   );
 };

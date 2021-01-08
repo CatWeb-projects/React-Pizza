@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'estafette-router';
 import { PizzaContext } from 'contexts/PizzaContext';
+import { Icon, Logo } from 'ui/atoms';
 
 import './Header.scss';
-import { Logo } from 'ui/atoms';
 
 export const Header = () => {
   const { cartPizzas } = React.useContext(PizzaContext);
@@ -23,7 +23,7 @@ export const Header = () => {
           </span>
 
           <span>
-            <i className="fas fa-shopping-cart"></i>
+            <Icon type="shopping-cart" />
             {cartPizzas && cartPizzas.length}
           </span>
         </Link>

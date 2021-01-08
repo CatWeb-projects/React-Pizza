@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   type?: 'primary' | 'invert' | 'transparent' | 'icon';
   disabled?: boolean;
+  generalType?: 'button' | 'submit';
 }
 
 export const Button: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const Button: React.FC<Props> = ({
   onClick,
   className = '',
   type = 'primary',
+  generalType = 'button',
   disabled,
   ...props
 }) => {
@@ -31,6 +33,7 @@ export const Button: React.FC<Props> = ({
       } ${className}`}
       onClick={onClickHandler}
       {...props}
+      type={generalType}
     >
       {children}
     </button>
