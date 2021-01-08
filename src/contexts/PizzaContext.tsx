@@ -183,6 +183,28 @@ export const pizzas: Pizza[] = [
     price: 285,
     category: 5,
     rating: 7
+  },
+  {
+    id: 10,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/b3c4109c40e24b618c47562a93c992cf_233x233.jpeg',
+    name: 'Цезарь',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: 395,
+    category: 5,
+    rating: 10
+  },
+  {
+    id: 11,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/44bfc7f0-792c-4bd4-a2bc-df322565c611.jpg',
+    name: 'Цыпленок ранч',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: 445,
+    category: 5,
+    rating: 10
   }
 ];
 

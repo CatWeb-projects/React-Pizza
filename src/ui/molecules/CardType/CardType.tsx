@@ -2,7 +2,7 @@ import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
 import { Button, Icon } from 'ui/atoms';
 
-import './Payment.scss';
+import './CardType.scss';
 
 export type CardTypes = 'visa' | 'master' | 'maestro' | '';
 
@@ -12,7 +12,7 @@ interface Props {
   onNextStep?: () => void;
 }
 
-export const Payment: React.FC<Props> = ({
+export const CardType: React.FC<Props> = ({
   onClose,
   onPrevStep,
   onNextStep
@@ -23,11 +23,11 @@ export const Payment: React.FC<Props> = ({
     setType((prevType) => (newType === prevType ? '' : newType));
 
   return (
-    <div className="payment-container">
-      <div className="payment-container__wrapper">
-        <div className="payment-container__cards-holder">
+    <div className="card-type-container">
+      <div className="card-type-container__wrapper">
+        <div className="card-type-container__cards-holder">
           <div
-            className={`payment-container__cards ${
+            className={`card-type-container__cards ${
               type === 'visa' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('visa')}
@@ -35,7 +35,7 @@ export const Payment: React.FC<Props> = ({
             <Icon className="visa" type="visa" />
           </div>
           <div
-            className={`payment-container__cards ${
+            className={`card-type-container__cards ${
               type === 'master' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('master')}
@@ -43,7 +43,7 @@ export const Payment: React.FC<Props> = ({
             <Icon className="master" type="master" />
           </div>
           <div
-            className={`payment-container__cards ${
+            className={`card-type-container__cards ${
               type === 'maestro' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('maestro')}
@@ -51,7 +51,7 @@ export const Payment: React.FC<Props> = ({
             <Icon className="maestro" type="maestro" />
           </div>
         </div>
-        <div className="payment-container__buttons">
+        <div className="card-type-container__buttons">
           <Button className="close" onClick={onClose}>
             Закрыть
           </Button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
 import { OrderForm } from 'ui/organisms';
-import { Confirmation, Payment } from 'ui/molecules';
+import { Confirmation, CardType } from 'ui/molecules';
 import { Button, Icon, Logo } from 'ui/atoms';
 
 import './Cart.scss';
@@ -9,7 +9,7 @@ import './Cart.scss';
 export const Cart = () => {
   const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
   const [order, setOrder] = React.useState<boolean>(false);
-  const [payment, setPayment] = React.useState<boolean>(false);
+  const [cardType, setCardType] = React.useState<boolean>(false);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
 
   const clearCart = () => {
@@ -32,24 +32,24 @@ export const Cart = () => {
   };
 
   const onCardPayment = () => {
-    setPayment((s) => !s);
+    setCardType((s) => !s);
     setOrder(false);
   };
 
   const onClose = () => {
     setConfirmation(false);
     setOrder(false);
-    setPayment(false);
+    setCardType(false);
   };
 
   const onPrevStep = () => {
     setOrder(true);
-    setPayment(false);
+    setCardType(false);
   };
 
   const onNextStep = () => {
     setOrder(false);
-    setPayment(false);
+    setCardType(false);
   };
 
   const onCheckout = () => {
@@ -190,8 +190,8 @@ export const Cart = () => {
         />
       )}
 
-      {payment && (
-        <Payment
+      {cardType && (
+        <CardType
           onClose={onClose}
           onPrevStep={onPrevStep}
           onNextStep={onNextStep}

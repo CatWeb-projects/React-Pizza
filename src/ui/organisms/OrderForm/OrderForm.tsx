@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { PizzaContext } from 'contexts/PizzaContext';
 import { Button } from 'ui/atoms';
 
@@ -17,13 +18,18 @@ export const OrderForm: React.FC<Props> = ({
 }) => {
   const { form, setForm } = React.useContext(PizzaContext);
 
+  const [message, setMessage] = React.useState<string>();
+
   const onAddFormInfo = (event: any) => {
+    event.preventDefault();
     const { name, value } = event.target;
 
     setForm({
       ...form,
       [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
     });
+
+    setMessage('Адрес Сохранён');
   };
 
   console.log(form);
@@ -85,7 +91,7 @@ export const OrderForm: React.FC<Props> = ({
         </div>
 
         <div className="order-container__form-info">
-          <form onSubmit={() => onAddFormInfo}>
+          <form onSubmit={onAddFormInfo}>
             <div className="order-container__form-group">
               <label htmlFor="name">Имя*</label>
               <input
@@ -182,19 +188,23 @@ export const OrderForm: React.FC<Props> = ({
 
             <div className="order-container__next-div">
               <h5>Тип Оплаты</h5>
+
+              {message && <span>{message}</span>}
+
               <div className="order-container__type-of-payment">
                 <Button
                   className="next"
                   generalType="submit"
-                  onClick={onCashPayment}
+                  onClick={() => onAddFormInfo}
                 >
+                  Сохранить Адрес
+                </Button>
+
+                <Button className="next" onClick={onCashPayment}>
                   Наличные
                 </Button>
-                <Button
-                  className="next"
-                  generalType="submit"
-                  onClick={onCardPayment}
-                >
+
+                <Button className="next" onClick={onCardPayment}>
                   Карточкой онлайн
                 </Button>
               </div>
