@@ -26,7 +26,7 @@
   &__cards-holder {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: minmax(300px, 1fr);
+    grid-template-rows: minmax(250px, 1fr);
     justify-items: center;
     align-items: center;
   }
@@ -38,7 +38,7 @@
     padding: rem(10px);cursor: pointer;
 
     svg {
-      font-size: 150px;
+      font-size: rem(150px);
       fill: #67aefc;
     }
   }
@@ -82,6 +82,94 @@
 
     &:hover {
       background-color: lighten(#0d9948, 15%);
+    }
+  }
+
+  &__card-pay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: rem(30px);
+  }
+
+  &__total {
+    margin-bottom: rem(20px);
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  &__card-info {
+    width: 70%;
+    border-radius: rem(10px);
+
+    input {
+      height: 50px;
+      background-color: #242852;
+      outline: none;
+      border: none;
+      color: #fff;
+      font-size: rem(20px);
+      padding-left: 30%;
+    }
+
+    span {
+      position: absolute;
+      color: #7175a2;
+      font-weight: 700;
+      font-size: rem(20px);
+    }
+  }
+
+  &__card-number {
+    border-bottom: rem(3px) solid #2a2e57;
+    position: relative;
+
+    input {
+      width: 100%;
+    }
+
+    span {
+      top: 50%;
+      left: rem(20px);
+      transform: translate(0, -50%);
+    }
+  }
+
+  &__card-holder {
+    position: relative;
+    border-bottom: rem(3px) solid #2a2e57;
+
+    input {
+      width: 100%;
+      padding-left: calc(30% + 10px);
+    }
+
+    span {
+      top: 50%;
+      left: rem(20px);
+      transform: translate(0, -50%);
+    }
+  }
+
+  &__card-additionals {
+    position: relative;
+
+    input {
+      width: 50%;
+    }
+
+    input:last-of-type {
+      padding-left: 20%;
+    }
+
+    span {
+      top: 50%;
+      left: rem(20px);
+      transform: translate(0, -50%);
+    }
+
+    span:last-of-type {
+      left: calc(50% + 20px);
     }
   }
 }

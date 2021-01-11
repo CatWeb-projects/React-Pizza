@@ -7,7 +7,13 @@ import { Button, Icon, Logo } from 'ui/atoms';
 import './Cart.scss';
 
 export const Cart = () => {
-  const { cartPizzas, setCardPizzas } = React.useContext(PizzaContext);
+  const {
+    cartPizzas,
+    setCardPizzas,
+    cardInfo,
+    setCardInfo,
+    type
+  } = React.useContext(PizzaContext);
   const [order, setOrder] = React.useState<boolean>(false);
   const [cardType, setCardType] = React.useState<boolean>(false);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
@@ -47,9 +53,26 @@ export const Cart = () => {
     setCardType(false);
   };
 
-  const onNextStep = () => {
+  const onNextStep = (
+    cardType: string,
+    totalSum: number,
+    card_number: string,
+    card_holder: string,
+    expiration_date: string,
+    cvc: number
+  ) => {
     setOrder(false);
     setCardType(false);
+
+    setCardInfo({
+      ...cardInfo,
+      cardType: cardType,
+      totalSum,
+      card_number,
+      card_holder,
+      expiration_date,
+      cvc
+    });
   };
 
   const onCheckout = () => {
@@ -194,7 +217,16 @@ export const Cart = () => {
         <CardType
           onClose={onClose}
           onPrevStep={onPrevStep}
-          onNextStep={onNextStep}
+          onNextStep={() =>
+            onNextStep(
+              type,
+              cardInfo.totalSum,
+              cardInfo.card_number,
+              cardInfo.card_holder,
+              cardInfo.expiration_date,
+              cardInfo.cvc
+            )
+          }
         />
       )}
 

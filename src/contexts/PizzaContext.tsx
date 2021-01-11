@@ -36,13 +36,24 @@ interface Form {
   code: number | string;
 }
 
+interface CardInfo {
+  cardType: string;
+  totalSum: number;
+  card_number: string;
+  card_holder: string;
+  expiration_date: string;
+  cvc: number;
+}
+
 interface Props {
   cartPizzas: CardPizza[];
   type: string;
   form: Form;
+  cardInfo: CardInfo;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
+  setCardInfo: React.Dispatch<React.SetStateAction<CardInfo>>;
 }
 
 const defaultValue = {
@@ -66,9 +77,18 @@ const defaultValue = {
     floor: '',
     code: ''
   },
+  cardInfo: {
+    cardType: '',
+    totalSum: 0,
+    card_number: '',
+    card_holder: '',
+    expiration_date: '',
+    cvc: 0
+  },
   setCardPizzas: () => {},
   setType: () => {},
-  setForm: () => {}
+  setForm: () => {},
+  setCardInfo: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -212,6 +232,7 @@ export const ProviderContext = (props: ProviderProps) => {
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
   const [type, setType] = React.useState<string>('');
   const [form, setForm] = React.useState<any>({});
+  const [cardInfo, setCardInfo] = React.useState<any>({});
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -235,13 +256,26 @@ export const ProviderContext = (props: ProviderProps) => {
     localStorage.setItem('get-form', JSON.stringify(form));
   }, [form]);
 
+  React.useEffect(() => {
+    const data = localStorage.getItem('card');
+    if (data) {
+      setForm(JSON.parse(data));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('card', JSON.stringify(cardInfo));
+  }, [cardInfo]);
+
   const values = {
     cartPizzas,
     setCardPizzas,
     type,
     setType,
     form,
-    setForm
+    setForm,
+    cardInfo,
+    setCardInfo
   };
 
   const { children } = props;
