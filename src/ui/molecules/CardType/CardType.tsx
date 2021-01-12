@@ -9,14 +9,9 @@ export type CardTypes = 'visa' | 'master' | 'maestro' | '';
 interface Props {
   onClose?: () => void;
   onPrevStep?: () => void;
-  onNextStep?: () => void;
 }
 
-export const CardType: React.FC<Props> = ({
-  onClose,
-  onPrevStep,
-  onNextStep
-}) => {
+export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
   const { cartPizzas, type, setType, cardInfo, setCardInfo } = React.useContext(
     PizzaContext
   );
@@ -24,25 +19,43 @@ export const CardType: React.FC<Props> = ({
   const selectCard = (newType: CardTypes) =>
     setType((prevType) => (newType === prevType ? '' : newType));
 
-  // const onCardPay = (event: any) => {
-  //   event.preventDefault();
-  //   const { name, value } = event.target;
+  const onCardPay = React.useCallback(
+    () => {
+      setCardInfo({
+        ...cardInfo,
+        cardType: type,
+        totalSum: cartPizzas.reduce(
+          (total, pizza) => total + pizza.price * pizza.quantity,
+          0
+        ),
+        card_number: cardInfo.card_number,
+        card_holder: cardInfo.card_holder,
+        expiration_date: cardInfo.expiration_date,
+        cvc: cardInfo.cvc
+      });
+    },
+    // eslint-disable-next-line
+    [cardInfo, type, cartPizzas]
+  );
 
-  //   setCardInfo({ ...cardInfo, [name]: value });
-  // };
+  const onChangeType = (event: { target: { value: string } }) => {
+    setCardInfo({ ...cardInfo, cardType: event.target.value });
+  };
 
-  const onCardPay = (event: any) => {
-    const { name, value } = event.target;
+  const onAddCardNumber = (event: { target: { value: string } }) => {
+    setCardInfo({ ...cardInfo, card_number: event.target.value });
+  };
 
-    setCardInfo({
-      ...cardInfo,
-      [name]: value,
-      cardType: type,
-      totalSum: cartPizzas.reduce(
-        (total, pizza) => total + pizza.price * pizza.quantity,
-        0
-      )
-    });
+  const onAddCardHolder = (event: { target: { value: string } }) => {
+    setCardInfo({ ...cardInfo, card_holder: event.target.value });
+  };
+
+  const onAddExpDate = (event: { target: { value: string } }) => {
+    setCardInfo({ ...cardInfo, expiration_date: event.target.value });
+  };
+
+  const onAddCvc = (event: { target: { value: any } }) => {
+    setCardInfo({ ...cardInfo, cvc: event.target.value });
   };
 
   console.log(cardInfo, 'cards');
@@ -57,6 +70,7 @@ export const CardType: React.FC<Props> = ({
               type === 'visa' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('visa')}
+            onChange={() => onChangeType}
           >
             <Icon className="visa" type="visa" />
           </div>
@@ -66,6 +80,7 @@ export const CardType: React.FC<Props> = ({
               type === 'master' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('master')}
+            onChange={() => onChangeType}
           >
             <Icon className="master" type="master" />
           </div>
@@ -75,6 +90,7 @@ export const CardType: React.FC<Props> = ({
               type === 'maestro' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('maestro')}
+            onChange={() => onChangeType}
           >
             <Icon className="maestro" type="maestro" />
           </div>
@@ -102,7 +118,8 @@ export const CardType: React.FC<Props> = ({
                     ? ''
                     : cardInfo.card_number
                 }
-                onChange={onCardPay}
+                onChange={onAddCardNumber}
+                placeholder="****-****-****-****"
               />
               <span>Номер Карты</span>
             </div>
@@ -116,7 +133,7 @@ export const CardType: React.FC<Props> = ({
                     ? ''
                     : cardInfo.card_holder
                 }
-                onChange={onCardPay}
+                onChange={onAddCardHolder}
               />
               <span>Владелец Карты</span>
             </div>
@@ -131,7 +148,7 @@ export const CardType: React.FC<Props> = ({
                     ? ''
                     : cardInfo.expiration_date
                 }
-                onChange={onCardPay}
+                onChange={onAddExpDate}
               />
               <span>Срок Действия</span>
               <input
@@ -139,7 +156,7 @@ export const CardType: React.FC<Props> = ({
                 name="cvc"
                 placeholder="CVC/CVV"
                 value={cardInfo.cvc === undefined || null ? '' : cardInfo.cvc}
-                onChange={onCardPay}
+                onChange={onAddCvc}
               />
               <span>CVC/CVV</span>
             </div>
@@ -155,7 +172,7 @@ export const CardType: React.FC<Props> = ({
             Назад
           </Button>
 
-          <Button className="next" onClick={() => onCardPay}>
+          <Button className="next" onClick={onCardPay}>
             Оплатить
           </Button>
         </div>

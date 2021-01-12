@@ -10,13 +10,15 @@ export const Cart = () => {
   const {
     cartPizzas,
     setCardPizzas,
-    cardInfo,
-    setCardInfo,
-    type
+    order,
+    setOrder,
+    cardType,
+    setCardType,
+    confirmation,
+    setConfirmation,
+    form,
+    setForm
   } = React.useContext(PizzaContext);
-  const [order, setOrder] = React.useState<boolean>(false);
-  const [cardType, setCardType] = React.useState<boolean>(false);
-  const [confirmation, setConfirmation] = React.useState<boolean>(false);
 
   const clearCart = () => {
     setCardPizzas([]);
@@ -33,9 +35,23 @@ export const Cart = () => {
   const onOrder = () => setOrder((s) => !s);
 
   const onCashPayment = () => {
+    setForm({
+      ...form,
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      address: form.address,
+      apartment: form.apartment,
+      entrance: form.entrance,
+      floor: form.floor,
+      code: form.code
+    });
+
     setConfirmation((s) => !s);
     setOrder(false);
   };
+
+  console.log(form, 'cart form');
 
   const onCardPayment = () => {
     setCardType((s) => !s);
@@ -51,28 +67,6 @@ export const Cart = () => {
   const onPrevStep = () => {
     setOrder(true);
     setCardType(false);
-  };
-
-  const onNextStep = (
-    cardType: string,
-    totalSum: number,
-    card_number: string,
-    card_holder: string,
-    expiration_date: string,
-    cvc: number
-  ) => {
-    setOrder(false);
-    setCardType(false);
-
-    setCardInfo({
-      ...cardInfo,
-      cardType: cardType,
-      totalSum,
-      card_number,
-      card_holder,
-      expiration_date,
-      cvc
-    });
   };
 
   const onCheckout = () => {
@@ -213,22 +207,7 @@ export const Cart = () => {
         />
       )}
 
-      {cardType && (
-        <CardType
-          onClose={onClose}
-          onPrevStep={onPrevStep}
-          onNextStep={() =>
-            onNextStep(
-              type,
-              cardInfo.totalSum,
-              cardInfo.card_number,
-              cardInfo.card_holder,
-              cardInfo.expiration_date,
-              cardInfo.cvc
-            )
-          }
-        />
-      )}
+      {cardType && <CardType onClose={onClose} onPrevStep={onPrevStep} />}
 
       {confirmation && <Confirmation onCheckout={onCheckout} />}
     </div>

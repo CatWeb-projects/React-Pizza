@@ -50,10 +50,16 @@ interface Props {
   type: string;
   form: Form;
   cardInfo: CardInfo;
+  order: boolean;
+  cardType: boolean;
+  confirmation: boolean;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
   setCardInfo: React.Dispatch<React.SetStateAction<CardInfo>>;
+  setOrder: React.Dispatch<React.SetStateAction<boolean>>;
+  setCardType: React.Dispatch<React.SetStateAction<boolean>>;
+  setConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultValue = {
@@ -85,10 +91,16 @@ const defaultValue = {
     expiration_date: '',
     cvc: 0
   },
+  order: false,
+  cardType: false,
+  confirmation: false,
   setCardPizzas: () => {},
   setType: () => {},
   setForm: () => {},
-  setCardInfo: () => {}
+  setCardInfo: () => {},
+  setOrder: () => {},
+  setCardType: () => {},
+  setConfirmation: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -233,6 +245,9 @@ export const ProviderContext = (props: ProviderProps) => {
   const [type, setType] = React.useState<string>('');
   const [form, setForm] = React.useState<any>({});
   const [cardInfo, setCardInfo] = React.useState<any>({});
+  const [order, setOrder] = React.useState<boolean>(false);
+  const [cardType, setCardType] = React.useState<boolean>(false);
+  const [confirmation, setConfirmation] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -257,9 +272,20 @@ export const ProviderContext = (props: ProviderProps) => {
   }, [form]);
 
   React.useEffect(() => {
+    const data = localStorage.getItem('card-type');
+    if (data) {
+      setType(JSON.parse(data));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('card-type', JSON.stringify(type));
+  }, [type]);
+
+  React.useEffect(() => {
     const data = localStorage.getItem('card');
     if (data) {
-      setForm(JSON.parse(data));
+      setCardInfo(JSON.parse(data));
     }
   }, []);
 
@@ -275,7 +301,13 @@ export const ProviderContext = (props: ProviderProps) => {
     form,
     setForm,
     cardInfo,
-    setCardInfo
+    setCardInfo,
+    order,
+    setOrder,
+    cardType,
+    setCardType,
+    confirmation,
+    setConfirmation
   };
 
   const { children } = props;

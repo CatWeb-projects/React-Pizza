@@ -20,68 +20,80 @@ export const OrderForm: React.FC<Props> = ({
 
   const [message, setMessage] = React.useState<string>();
 
-  const onAddFormInfo = (event: any) => {
-    event.preventDefault();
-    const { name, value } = event.target;
+  const onAddFormInfo = React.useCallback(
+    (event: any) => {
+      event.preventDefault();
 
-    setForm({
-      ...form,
-      [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
-    });
+      setForm({
+        ...form,
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        address: form.address,
+        apartment: form.apartment,
+        entrance: form.entrance,
+        floor: form.floor,
+        code: form.code
+      });
 
-    setMessage('Адрес Сохранён');
-  };
+      setMessage('Адрес Сохранён');
+
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+    },
+    // eslint-disable-next-line
+    [form, message]
+  );
 
   console.log(form);
 
-  //A longer method I tried before
+  const onAddName = (event: { target: { value: string } }) => {
+    setForm({ ...form, name: event.target.value });
+  };
 
-  // const onAddName = (event: { target: { value: string } }) => {
-  //   setForm({ ...form, name: event.target.value });
-  // };
+  const onAddPhone = (event: { target: { value: number | string } }) => {
+    setForm({
+      ...form,
+      phone: form.phone === 0 ? '' : Number(event.target.value)
+    });
+  };
 
-  // const onAddPhone = (event: { target: { value: number | string } }) => {
-  //   setForm({
-  //     ...form,
-  //     phone: form.phone === 0 ? '' : Number(event.target.value)
-  //   });
-  // };
+  const onAddEmail = (event: { target: { value: string } }) => {
+    setForm({ ...form, email: event.target.value });
+  };
 
-  // const onAddEmail = (event: { target: { value: any } }) => {
-  //   setForm({ ...form, email: event.target.value });
-  // };
+  const onAddAddress = (event: { target: { value: string } }) => {
+    setForm({ ...form, address: event.target.value });
+  };
 
-  // const onAddAddress = (event: { target: { value: any } }) => {
-  //   setForm({ ...form, address: event.target.value });
-  // };
+  const onAddApartment = (event: { target: { value: number | string } }) => {
+    setForm({
+      ...form,
+      apartment: form.apartment === 0 ? '' : Number(event.target.value)
+    });
+  };
 
-  // const onAddApartment = (event: { target: { value: number | string } }) => {
-  //   setForm({
-  //     ...form,
-  //     apartment: form.apartment === 0 ? '' : Number(event.target.value)
-  //   });
-  // };
+  const onAddEntrance = (event: { target: { value: number | string } }) => {
+    setForm({
+      ...form,
+      entrance: form.entrance === 0 ? '' : Number(event.target.value)
+    });
+  };
 
-  // const onAddEntrance = (event: { target: { value: any } }) => {
-  //   setForm({
-  //     ...form,
-  //     entrance: form.entrance === 0 ? '' : Number(event.target.value)
-  //   });
-  // };
+  const onAddFloor = (event: { target: { value: number | string } }) => {
+    setForm({
+      ...form,
+      floor: form.floor === 0 ? '' : Number(event.target.value)
+    });
+  };
 
-  // const onAddFloor = (event: { target: { value: any } }) => {
-  //   setForm({
-  //     ...form,
-  //     floor: form.floor === 0 ? '' : Number(event.target.value)
-  //   });
-  // };
-
-  // const onAddCode = (event: { target: { value: any } }) => {
-  //   setForm({
-  //     ...form,
-  //     code: form.code === 0 ? '' : Number(event.target.value)
-  //   });
-  // };
+  const onAddCode = (event: { target: { value: number | string } }) => {
+    setForm({
+      ...form,
+      code: form.code === 0 ? '' : Number(event.target.value)
+    });
+  };
 
   return (
     <div className="order-container">
@@ -99,7 +111,7 @@ export const OrderForm: React.FC<Props> = ({
                 placeholder="Имя*"
                 name="name"
                 value={form.name === undefined || null ? '' : form.name}
-                onChange={onAddFormInfo}
+                onChange={onAddName}
               />
             </div>
 
@@ -110,7 +122,7 @@ export const OrderForm: React.FC<Props> = ({
                 placeholder="Телефон*"
                 name="phone"
                 value={form.phone === undefined || null ? '' : form.phone}
-                onChange={onAddFormInfo}
+                onChange={onAddPhone}
               />
             </div>
 
@@ -121,7 +133,7 @@ export const OrderForm: React.FC<Props> = ({
                 placeholder="Email"
                 name="email"
                 value={form.email === undefined || null ? '' : form.email}
-                onChange={onAddFormInfo}
+                onChange={onAddEmail}
               />
             </div>
 
@@ -132,7 +144,7 @@ export const OrderForm: React.FC<Props> = ({
                 placeholder="Адрес*"
                 name="address"
                 value={form.address === undefined || null ? '' : form.address}
-                onChange={onAddFormInfo}
+                onChange={onAddAddress}
               />
             </div>
 
@@ -146,7 +158,7 @@ export const OrderForm: React.FC<Props> = ({
                   value={
                     form.apartment === undefined || null ? '' : form.apartment
                   }
-                  onChange={onAddFormInfo}
+                  onChange={onAddApartment}
                 />
               </div>
 
@@ -159,7 +171,7 @@ export const OrderForm: React.FC<Props> = ({
                   value={
                     form.entrance === undefined || null ? '' : form.entrance
                   }
-                  onChange={onAddFormInfo}
+                  onChange={onAddEntrance}
                 />
               </div>
 
@@ -170,7 +182,7 @@ export const OrderForm: React.FC<Props> = ({
                   placeholder="Этаж"
                   name="floor"
                   value={form.floor === undefined || null ? '' : form.floor}
-                  onChange={onAddFormInfo}
+                  onChange={onAddFloor}
                 />
               </div>
 
@@ -181,7 +193,7 @@ export const OrderForm: React.FC<Props> = ({
                   placeholder="Код"
                   name="code"
                   value={form.code === undefined || null ? '' : form.code}
-                  onChange={onAddFormInfo}
+                  onChange={onAddCode}
                 />
               </div>
             </div>
