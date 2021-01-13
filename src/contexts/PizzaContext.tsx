@@ -27,7 +27,7 @@ interface CardPizza {
 
 interface Form {
   name: string;
-  phone: number | string;
+  phone: string;
   email: string;
   address: string;
   apartment: number | string;
@@ -53,6 +53,8 @@ interface Props {
   order: boolean;
   cardType: boolean;
   confirmation: boolean;
+  filtered: Pizza[];
+  saveFilteredCategory: number;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
@@ -60,6 +62,8 @@ interface Props {
   setOrder: React.Dispatch<React.SetStateAction<boolean>>;
   setCardType: React.Dispatch<React.SetStateAction<boolean>>;
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
+  setFiltered: React.Dispatch<React.SetStateAction<Pizza[]>>;
+  setSaveFilteredCategory: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const defaultValue = {
@@ -94,13 +98,17 @@ const defaultValue = {
   order: false,
   cardType: false,
   confirmation: false,
+  filtered: [],
+  saveFilteredCategory: 0,
   setCardPizzas: () => {},
   setType: () => {},
   setForm: () => {},
   setCardInfo: () => {},
   setOrder: () => {},
   setCardType: () => {},
-  setConfirmation: () => {}
+  setConfirmation: () => {},
+  setFiltered: () => {},
+  setSaveFilteredCategory: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -114,7 +122,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 803,
-    category: 0,
+    category: 4,
     rating: 4
   },
   {
@@ -147,7 +155,7 @@ export const pizzas: Pizza[] = [
     types: [1],
     sizes: [26, 30, 40],
     price: 275,
-    category: 2,
+    category: 3,
     rating: 2
   },
   {
@@ -158,7 +166,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 415,
-    category: 3,
+    category: 2,
     rating: 8
   },
   {
@@ -169,7 +177,7 @@ export const pizzas: Pizza[] = [
     types: [0],
     sizes: [30, 40],
     price: 580,
-    category: 2,
+    category: 4,
     rating: 2
   },
   {
@@ -180,7 +188,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 675,
-    category: 1,
+    category: 4,
     rating: 9
   },
   {
@@ -191,7 +199,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 450,
-    category: 4,
+    category: 2,
     rating: 10
   },
   {
@@ -202,7 +210,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 395,
-    category: 5,
+    category: 1,
     rating: 10
   },
   {
@@ -235,7 +243,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 445,
-    category: 5,
+    category: 3,
     rating: 10
   }
 ];
@@ -248,6 +256,11 @@ export const ProviderContext = (props: ProviderProps) => {
   const [order, setOrder] = React.useState<boolean>(false);
   const [cardType, setCardType] = React.useState<boolean>(false);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
+  const [filtered, setFiltered] = React.useState<Pizza[]>([]);
+  const [
+    saveFilteredCategory,
+    setSaveFilteredCategory
+  ] = React.useState<number>(0);
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -307,7 +320,11 @@ export const ProviderContext = (props: ProviderProps) => {
     cardType,
     setCardType,
     confirmation,
-    setConfirmation
+    setConfirmation,
+    filtered,
+    setFiltered,
+    saveFilteredCategory,
+    setSaveFilteredCategory
   };
 
   const { children } = props;

@@ -12,9 +12,15 @@ interface Props {
 }
 
 export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
-  const { cartPizzas, type, setType, cardInfo, setCardInfo } = React.useContext(
-    PizzaContext
-  );
+  const {
+    cartPizzas,
+    type,
+    setType,
+    cardInfo,
+    setCardInfo,
+    setCardType,
+    setOrder
+  } = React.useContext(PizzaContext);
 
   const selectCard = (newType: CardTypes) =>
     setType((prevType) => (newType === prevType ? '' : newType));
@@ -33,29 +39,63 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
         expiration_date: cardInfo.expiration_date,
         cvc: cardInfo.cvc
       });
+
+      setCardType(false);
+      setOrder(false);
     },
     // eslint-disable-next-line
     [cardInfo, type, cartPizzas]
   );
 
-  const onChangeType = (event: { target: { value: string } }) => {
-    setCardInfo({ ...cardInfo, cardType: event.target.value });
-  };
+  // const onChange = React.useCallback(
+  //   (event: any) => {
+  //     const { name, value } = event.target;
+  //     setCardInfo({
+  //       ...cardInfo,
+  //       [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
+  //     });
+  //   },
+  //   // eslint-disable-next-line
+  //   [cardInfo, type]
+  // );
 
-  const onAddCardNumber = (event: { target: { value: string } }) => {
-    setCardInfo({ ...cardInfo, card_number: event.target.value });
+  // const onChangeType = React.useCallback(
+  //   () => {
+  //     setCardInfo({ ...cardInfo, cardType: type });
+  //   },
+  //   // eslint-disable-next-line
+  //   [cardInfo, type]
+  // );
+
+  const onAddCardNumber = (event: { target: any }) => {
+    setCardInfo({
+      ...cardInfo,
+      card_number: event.target.value
+        .replace(/[^0-9]+/gi, '')
+        .replace(/(.{4})/g, '$1-')
+        .substr(0, 19)
+    });
   };
 
   const onAddCardHolder = (event: { target: { value: string } }) => {
-    setCardInfo({ ...cardInfo, card_holder: event.target.value });
+    setCardInfo({
+      ...cardInfo,
+      card_holder: event.target.value.replace(/[^a-z]/gi, '')
+    });
   };
 
   const onAddExpDate = (event: { target: { value: string } }) => {
-    setCardInfo({ ...cardInfo, expiration_date: event.target.value });
+    setCardInfo({
+      ...cardInfo,
+      expiration_date: event.target.value.replace(/[^0-9]\\/gi, '')
+    });
   };
 
   const onAddCvc = (event: { target: { value: any } }) => {
-    setCardInfo({ ...cardInfo, cvc: event.target.value });
+    setCardInfo({
+      ...cardInfo,
+      cvc: event.target.value.substr(0, 3)
+    });
   };
 
   console.log(cardInfo, 'cards');
@@ -70,7 +110,6 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
               type === 'visa' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('visa')}
-            onChange={() => onChangeType}
           >
             <Icon className="visa" type="visa" />
           </div>
@@ -80,7 +119,6 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
               type === 'master' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('master')}
-            onChange={() => onChangeType}
           >
             <Icon className="master" type="master" />
           </div>
@@ -90,7 +128,6 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
               type === 'maestro' ? 'card-is-active' : ''
             }`}
             onClick={() => selectCard('maestro')}
-            onChange={() => onChangeType}
           >
             <Icon className="maestro" type="maestro" />
           </div>
@@ -154,7 +191,7 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
               <input
                 type="text"
                 name="cvc"
-                placeholder="CVC/CVV"
+                placeholder="***"
                 value={cardInfo.cvc === undefined || null ? '' : cardInfo.cvc}
                 onChange={onAddCvc}
               />
