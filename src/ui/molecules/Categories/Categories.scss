@@ -25,4 +25,7 @@
       border-bottom: rem(1px) dotted #fe5f1e;
     }
   }
+  .active-filter {
+    background-color: lighten(#ff851b, 15%);
+  }
 }

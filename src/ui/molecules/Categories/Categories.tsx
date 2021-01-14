@@ -50,8 +50,10 @@ export const Categories = () => {
       pizzas.map((pizza) => {
         if (pizza.category === category) {
           setSaveFilteredCategory(category);
-        } else {
-          return setFiltered(pizzas);
+        }
+        if (category === 0) {
+          setSaveFilteredCategory(category);
+          setFiltered(pizzas);
         }
         return null;
       });
@@ -83,6 +85,9 @@ export const Categories = () => {
             <Button
               key={button.id}
               onClick={() => onToggleFilters(button.category)}
+              className={
+                button.category === saveFilteredCategory ? 'active-filter' : ''
+              }
             >
               {button.title}
             </Button>
