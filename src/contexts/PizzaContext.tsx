@@ -199,7 +199,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 450,
-    category: 2,
+    category: 5,
     rating: 10
   },
   {
@@ -221,7 +221,7 @@ export const pizzas: Pizza[] = [
     types: [0, 1],
     sizes: [26, 30, 40],
     price: 285,
-    category: 5,
+    category: 2,
     rating: 7
   },
   {

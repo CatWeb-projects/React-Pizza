@@ -50,6 +50,8 @@ export const Categories = () => {
       pizzas.map((pizza) => {
         if (pizza.category === category) {
           setSaveFilteredCategory(category);
+        } else {
+          return setFiltered(pizzas);
         }
         return null;
       });
@@ -68,7 +70,7 @@ export const Categories = () => {
 
     setFiltered(filteredPizzas);
     // eslint-disable-next-line
-  }, [pizzas, saveFilteredCategory, pizzas]);
+  }, [pizzas, saveFilteredCategory]);
 
   console.log(saveFilteredCategory, 'save the category');
   console.log(filtered, 'filtering');
