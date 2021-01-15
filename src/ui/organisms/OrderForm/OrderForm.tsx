@@ -61,7 +61,7 @@ export const OrderForm: React.FC<Props> = ({
   );
 
   const onAddName = (event: { target: { value: string } }) => {
-    setForm({ ...form, name: event.target.value.replace(/[^a-z]/gi, '') });
+    setForm({ ...form, name: event.target.value.replace(/[^a-z\s]+/gi, '') });
   };
 
   const onAddPhone = (event: { target: { value: string } }) => {

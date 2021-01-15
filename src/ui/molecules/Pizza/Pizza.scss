@@ -15,6 +15,14 @@
 
   img {
     height: rem(260px);
+    transition: all 150ms ease-out 0s ;
+    position: relative;
+    top: 0;
+
+    &:hover {
+      top: rem(3px);
+      // transform: translate(0, 3px);
+    }
   }
 
   &__title {
@@ -91,11 +99,16 @@
       &:hover {
         color: #fff;
         background: #eb5a1e;
+
+        svg {
+          fill: #fff;
+        }
       }
     }
 
-    i {
+    svg {
       margin-right: rem(10px);
+      fill: #eb5a1e;
     }
     
     span {

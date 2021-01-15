@@ -1,6 +1,6 @@
 import React from 'react';
 import { pizzas, PizzaContext } from 'contexts/PizzaContext';
-import { Button } from 'ui/atoms';
+import { Button, Icon } from 'ui/atoms';
 
 import './Pizza.scss';
 
@@ -76,7 +76,7 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
   return (
     pizza && (
       <div key={pizza.id} className="products-container__pizza">
-        <div className="products-container__logo">
+        <div className="products-container__img">
           <img src={pizza.imageUrl} alt={pizza.imageUrl} />
         </div>
         <div className="products-container__title">{pizza.name}</div>
@@ -126,7 +126,8 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
               )
             }
           >
-            <i className="fas fa-plus"></i>Добавить
+            <Icon type="plus" />
+            Добавить
           </Button>
         </div>
       </div>

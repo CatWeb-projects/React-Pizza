@@ -39,6 +39,8 @@ const buttonInfo = [
 
 export const Categories = () => {
   const {
+    allPizzas,
+    setAllPizzas,
     filtered,
     setFiltered,
     saveFilteredCategory,
@@ -47,13 +49,13 @@ export const Categories = () => {
 
   const onToggleFilters = React.useCallback(
     (category: number) => {
-      pizzas.map((pizza) => {
+      allPizzas.map((pizza) => {
         if (pizza.category === category) {
           setSaveFilteredCategory(category);
         }
         if (category === 0) {
           setSaveFilteredCategory(category);
-          setFiltered(pizzas);
+          setFiltered(allPizzas);
         }
         return null;
       });
@@ -63,7 +65,7 @@ export const Categories = () => {
   );
 
   React.useEffect(() => {
-    const filteredPizzas = pizzas.filter((pizza) => {
+    const filteredPizzas = allPizzas.filter((pizza) => {
       if (pizza.category === saveFilteredCategory) {
         return true;
       }
@@ -72,10 +74,38 @@ export const Categories = () => {
 
     setFiltered(filteredPizzas);
     // eslint-disable-next-line
-  }, [pizzas, saveFilteredCategory]);
+  }, [allPizzas, saveFilteredCategory]);
 
-  console.log(saveFilteredCategory, 'save the category');
-  console.log(filtered, 'filtering');
+  const sortFn = React.useCallback(
+    (type) => {
+      const types: any = {
+        popularity: 'rating',
+        price_asc: 'price',
+        price_desc: 'price',
+        name: 'name'
+      };
+
+      const sortProperty = types[type];
+
+      const sorted = allPizzas.sort((a: any, b: any) => {
+        if (type === 'name') {
+          return a.name.localeCompare(b.name);
+        }
+        if (type === 'price_desc') {
+          return b.price - a.price;
+        }
+        return b[sortProperty] - a[sortProperty];
+      });
+
+      setAllPizzas(sorted);
+      // console.log(saveFilteredCategory, 'category nr');
+      console.log(allPizzas, 'pizzas');
+      console.log(filtered, 'filtered');
+      // console.log(sorted, 'sorted');
+    },
+    // eslint-disable-next-line
+    [allPizzas]
+  );
 
   return (
     <div className="categories-container">
@@ -96,10 +126,11 @@ export const Categories = () => {
       <div className="categories-container__select">
         <i className="fas fa-sort-up"></i>
         <span>Сортировка по:</span>
-        <select>
-          <option value="Popularity">По популярности</option>
-          <option value="price">По цене</option>
-          <option value="price">По алфавиту</option>
+        <select onChange={(e) => sortFn(e.target.value)}>
+          <option value="popularity">По популярности</option>
+          <option value="price_asc">По возрастающей цене</option>
+          <option value="price_desc">По убывающей цене</option>
+          <option value="name">По алфавиту</option>
         </select>
       </div>
     </div>

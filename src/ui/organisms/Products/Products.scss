@@ -9,5 +9,14 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
     grid-gap: rem(30px);
+    
+    &__img {
+      cursor: pointer;
+      transition: 0.3s all;
+      
+      &:hover img {
+        transform: translate(0, 10px);
+      }
+    }
   }
 }
