@@ -39,23 +39,22 @@ const buttonInfo = [
 
 export const Categories = () => {
   const {
-    allPizzas,
-    setAllPizzas,
-    filtered,
     setFiltered,
     saveFilteredCategory,
     setSaveFilteredCategory
   } = React.useContext(PizzaContext);
 
+  const [selectType, setSelectType] = React.useState<string>('popularity');
+
   const onToggleFilters = React.useCallback(
     (category: number) => {
-      allPizzas.map((pizza) => {
+      pizzas.map((pizza) => {
         if (pizza.category === category) {
           setSaveFilteredCategory(category);
         }
         if (category === 0) {
           setSaveFilteredCategory(category);
-          setFiltered(allPizzas);
+          setFiltered(pizzas);
         }
         return null;
       });
@@ -65,19 +64,14 @@ export const Categories = () => {
   );
 
   React.useEffect(() => {
-    const filteredPizzas = allPizzas.filter((pizza) => {
+    const filteredPizzas = pizzas.filter((pizza) => {
       if (pizza.category === saveFilteredCategory) {
         return true;
       }
       return false;
     });
 
-    setFiltered(filteredPizzas);
-    // eslint-disable-next-line
-  }, [allPizzas, saveFilteredCategory]);
-
-  const sortFn = React.useCallback(
-    (type) => {
+    const sortFn = (type: string) => {
       const types: any = {
         popularity: 'rating',
         price_asc: 'price',
@@ -87,25 +81,21 @@ export const Categories = () => {
 
       const sortProperty = types[type];
 
-      const sorted = allPizzas.sort((a: any, b: any) => {
+      pizzas.sort((a: any, b: any) => {
         if (type === 'name') {
           return a.name.localeCompare(b.name);
         }
-        if (type === 'price_desc') {
-          return b.price - a.price;
+        if (type === 'price_asc') {
+          return a.price - b.price;
         }
         return b[sortProperty] - a[sortProperty];
       });
+    };
 
-      setAllPizzas(sorted);
-      // console.log(saveFilteredCategory, 'category nr');
-      console.log(allPizzas, 'pizzas');
-      console.log(filtered, 'filtered');
-      // console.log(sorted, 'sorted');
-    },
+    setFiltered(filteredPizzas);
+    sortFn(selectType);
     // eslint-disable-next-line
-    [allPizzas]
-  );
+  }, [pizzas, saveFilteredCategory, selectType]);
 
   return (
     <div className="categories-container">
@@ -126,7 +116,7 @@ export const Categories = () => {
       <div className="categories-container__select">
         <i className="fas fa-sort-up"></i>
         <span>Сортировка по:</span>
-        <select onChange={(e) => sortFn(e.target.value)}>
+        <select onChange={(e) => setSelectType(e.target.value)}>
           <option value="popularity">По популярности</option>
           <option value="price_asc">По возрастающей цене</option>
           <option value="price_desc">По убывающей цене</option>

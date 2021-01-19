@@ -179,7 +179,7 @@ export const Cart = () => {
         </div>
 
         <div className="cart-content__total">
-          Итого:
+          Сумма заказа:
           {cartPizzas.reduce(
             (total, item) => total + item.price * item.quantity,
             0

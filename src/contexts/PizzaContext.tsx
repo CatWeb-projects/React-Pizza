@@ -46,7 +46,6 @@ interface CardInfo {
 }
 
 interface Props {
-  allPizzas: Pizza[];
   cartPizzas: CardPizza[];
   type: string;
   form: Form;
@@ -56,7 +55,6 @@ interface Props {
   confirmation: boolean;
   filtered: Pizza[];
   saveFilteredCategory: number;
-  setAllPizzas: React.Dispatch<React.SetStateAction<Pizza[]>>;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
@@ -69,7 +67,7 @@ interface Props {
 }
 
 const defaultValue = {
-  allPizzas: [],
+  sortedPizzas: [],
   id: 0,
   imageUrl: '',
   name: '',
@@ -103,7 +101,7 @@ const defaultValue = {
   confirmation: false,
   filtered: [],
   saveFilteredCategory: 0,
-  setAllPizzas: () => {},
+  setSortedPizzas: () => {},
   setCardPizzas: () => {},
   setType: () => {},
   setForm: () => {},
@@ -253,7 +251,6 @@ export const pizzas: Pizza[] = [
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
-  const [allPizzas, setAllPizzas] = React.useState<Pizza[]>(pizzas);
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
   const [type, setType] = React.useState<string>('');
   const [form, setForm] = React.useState<any>({});
@@ -312,8 +309,6 @@ export const ProviderContext = (props: ProviderProps) => {
   }, [cardInfo]);
 
   const values = {
-    allPizzas,
-    setAllPizzas,
     cartPizzas,
     setCardPizzas,
     type,
