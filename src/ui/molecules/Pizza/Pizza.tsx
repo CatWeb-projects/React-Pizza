@@ -11,7 +11,7 @@ interface Props {
     name?: string;
     types?: number[];
     sizes?: number[];
-    price?: number;
+    price?: number[];
     category?: number;
     rating?: number;
   };
@@ -23,6 +23,7 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
   const [saveId, setSaveId] = React.useState<number>();
   const [pizzaSize, setPizzaSize] = React.useState<number>(0);
   const [pizzaType, setPizzaType] = React.useState<number>(0);
+  const [pizzaPrice, setPizzaPrice] = React.useState<number>();
 
   const addToCart = React.useCallback(
     (id, name, price, size, type, imageUrl) => {
@@ -57,6 +58,8 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
         setSaveId(pizza.id);
         pizza.sizes.filter((match) => match === size);
         setPizzaSize(size);
+        const priceValue = pizza.sizes.indexOf(size);
+        setPizzaPrice(pizza.price[priceValue]);
       }
       return null;
     });
@@ -113,13 +116,17 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
         </div>
 
         <div className="products-container__price">
-          <span>От {`${pizza.price} ₽`}</span>
+          <span>
+            {pizzaPrice
+              ? `${pizzaPrice} ₽`
+              : `От ${pizza.price && pizza.price[0]} ₽`}
+          </span>
           <Button
             onClick={() =>
               addToCart(
                 Math.round(Math.random() * 100000),
                 pizza.name,
-                pizza.price,
+                pizzaPrice,
                 pizzaSize,
                 pizzaType,
                 pizza.imageUrl

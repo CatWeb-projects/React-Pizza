@@ -10,7 +10,7 @@ interface Pizza {
   name: string;
   types: number[];
   sizes: number[];
-  price: number;
+  price: number[];
   category: number;
   rating: number;
 }
@@ -127,7 +127,7 @@ export const pizzas: Pizza[] = [
     name: 'Пепперони Фреш с перцем',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 803,
+    price: [245, 435, 575],
     category: 4,
     rating: 4
   },
@@ -137,8 +137,8 @@ export const pizzas: Pizza[] = [
       'https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg',
     name: 'Сырная',
     types: [0],
-    sizes: [26, 40],
-    price: 245,
+    sizes: [26, 30, 40],
+    price: [245, 435, 575],
     category: 1,
     rating: 6
   },
@@ -149,7 +149,7 @@ export const pizzas: Pizza[] = [
     name: 'Цыпленок барбекю',
     types: [0],
     sizes: [26, 40],
-    price: 295,
+    price: [445, 845],
     category: 1,
     rating: 6
   },
@@ -160,7 +160,7 @@ export const pizzas: Pizza[] = [
     name: 'Кисло-сладкий цыпленок',
     types: [1],
     sizes: [26, 30, 40],
-    price: 275,
+    price: [295, 475, 625],
     category: 3,
     rating: 4
   },
@@ -171,7 +171,7 @@ export const pizzas: Pizza[] = [
     name: 'Чизбургер-пицца',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 415,
+    price: [395, 625, 775],
     category: 2,
     rating: 8
   },
@@ -182,7 +182,7 @@ export const pizzas: Pizza[] = [
     name: 'Крэйзи пепперони',
     types: [0],
     sizes: [30, 40],
-    price: 580,
+    price: [695, 845],
     category: 4,
     rating: 2
   },
@@ -193,7 +193,7 @@ export const pizzas: Pizza[] = [
     name: 'Пепперони',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 675,
+    price: [395, 625, 775],
     category: 4,
     rating: 3
   },
@@ -204,7 +204,7 @@ export const pizzas: Pizza[] = [
     name: 'Маргарита',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 450,
+    price: [345, 525, 695],
     category: 5,
     rating: 5
   },
@@ -215,7 +215,7 @@ export const pizzas: Pizza[] = [
     name: 'Четыре сезона',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 395,
+    price: [395, 625, 795],
     category: 1,
     rating: 6
   },
@@ -226,7 +226,7 @@ export const pizzas: Pizza[] = [
     name: 'Овощи и грибы 🌱',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 285,
+    price: [285, 450, 600],
     category: 2,
     rating: 7
   },
@@ -237,7 +237,7 @@ export const pizzas: Pizza[] = [
     name: 'Цезарь',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 395,
+    price: [395, 645, 795],
     category: 5,
     rating: 9
   },
@@ -248,7 +248,7 @@ export const pizzas: Pizza[] = [
     name: 'Цыпленок ранч',
     types: [0, 1],
     sizes: [26, 30, 40],
-    price: 445,
+    price: [445, 725, 895],
     category: 3,
     rating: 10
   }

@@ -109,7 +109,7 @@ export const Cart = () => {
         <div className="cart-content__number">
           {cartPizzas && (
             <h3>
-              Кол-во пицц:
+              Кол-во пицц:{' '}
               {cartPizzas.reduce((total, pizza) => total + pizza.quantity, 0)}
             </h3>
           )}
@@ -184,7 +184,7 @@ export const Cart = () => {
         </div>
 
         <div className="cart-content__total">
-          Сумма заказа:
+          Сумма заказа:{' '}
           {cartPizzas.reduce(
             (total, item) => total + item.price * item.quantity,
             0

@@ -89,9 +89,11 @@ export const Categories = () => {
             return a.name.localeCompare(b.name);
           }
           if (type === 'price_asc') {
-            return a.price - b.price;
+            return a.price[0] - b.price[0];
           }
-          return b[sortProperty] - a[sortProperty];
+          return sortProperty === 'price'
+            ? b.price[0] - a.price[0]
+            : b[sortProperty] - a[sortProperty];
         }
       );
     };

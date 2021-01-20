@@ -87,7 +87,9 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
   const onAddExpDate = (event: { target: { value: string } }) => {
     setCardInfo({
       ...cardInfo,
-      expiration_date: event.target.value.replace(/[^0-9]\\/gi, '')
+      expiration_date: event.target.value
+        .replace(/[^0-9/]/gi, '')
+        .substring(0, 5)
     });
   };
 
