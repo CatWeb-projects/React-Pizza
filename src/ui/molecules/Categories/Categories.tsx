@@ -41,10 +41,10 @@ export const Categories = () => {
   const {
     setFiltered,
     saveFilteredCategory,
-    setSaveFilteredCategory
+    setSaveFilteredCategory,
+    selectType,
+    setSelectType
   } = React.useContext(PizzaContext);
-
-  const [selectType, setSelectType] = React.useState<string>('popularity');
 
   const onToggleFilters = React.useCallback(
     (category: number) => {
@@ -71,6 +71,8 @@ export const Categories = () => {
       return false;
     });
 
+    setFiltered(filteredPizzas);
+
     const sortFn = (type: string) => {
       const types: any = {
         popularity: 'rating',
@@ -81,18 +83,19 @@ export const Categories = () => {
 
       const sortProperty = types[type];
 
-      pizzas.sort((a: any, b: any) => {
-        if (type === 'name') {
-          return a.name.localeCompare(b.name);
+      (saveFilteredCategory ? filteredPizzas : pizzas).sort(
+        (a: any, b: any) => {
+          if (type === 'name') {
+            return a.name.localeCompare(b.name);
+          }
+          if (type === 'price_asc') {
+            return a.price - b.price;
+          }
+          return b[sortProperty] - a[sortProperty];
         }
-        if (type === 'price_asc') {
-          return a.price - b.price;
-        }
-        return b[sortProperty] - a[sortProperty];
-      });
+      );
     };
 
-    setFiltered(filteredPizzas);
     sortFn(selectType);
     // eslint-disable-next-line
   }, [pizzas, saveFilteredCategory, selectType]);

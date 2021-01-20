@@ -55,6 +55,7 @@ interface Props {
   confirmation: boolean;
   filtered: Pizza[];
   saveFilteredCategory: number;
+  selectType: string;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
@@ -64,6 +65,7 @@ interface Props {
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
   setFiltered: React.Dispatch<React.SetStateAction<Pizza[]>>;
   setSaveFilteredCategory: React.Dispatch<React.SetStateAction<number>>;
+  setSelectType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const defaultValue = {
@@ -101,6 +103,7 @@ const defaultValue = {
   confirmation: false,
   filtered: [],
   saveFilteredCategory: 0,
+  selectType: 'popularity',
   setSortedPizzas: () => {},
   setCardPizzas: () => {},
   setType: () => {},
@@ -110,7 +113,8 @@ const defaultValue = {
   setCardType: () => {},
   setConfirmation: () => {},
   setFiltered: () => {},
-  setSaveFilteredCategory: () => {}
+  setSaveFilteredCategory: () => {},
+  setSelectType: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -263,6 +267,7 @@ export const ProviderContext = (props: ProviderProps) => {
     saveFilteredCategory,
     setSaveFilteredCategory
   ] = React.useState<number>(0);
+  const [selectType, setSelectType] = React.useState<string>('popularity');
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -326,7 +331,9 @@ export const ProviderContext = (props: ProviderProps) => {
     filtered,
     setFiltered,
     saveFilteredCategory,
-    setSaveFilteredCategory
+    setSaveFilteredCategory,
+    selectType,
+    setSelectType
   };
 
   const { children } = props;

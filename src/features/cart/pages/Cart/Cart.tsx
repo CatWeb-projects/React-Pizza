@@ -107,12 +107,17 @@ export const Cart = () => {
 
       <div className="cart-content">
         <div className="cart-content__number">
-          {cartPizzas && <h3>{cartPizzas.length} Товары в вашей корзине</h3>}
+          {cartPizzas && (
+            <h3>
+              Кол-во пицц:
+              {cartPizzas.reduce((total, pizza) => total + pizza.quantity, 0)}
+            </h3>
+          )}
         </div>
 
         <div className="cart-content__header">
           <div className="cart-content__header-info">
-            <div>Товар(ы)</div>
+            <div>{cartPizzas.length} Товар(ы)</div>
           </div>
           <div className="cart-content__header-wrapper">
             <div>Цена</div>
