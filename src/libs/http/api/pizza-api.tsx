@@ -1,11 +1,12 @@
 import axios, { Canceler } from 'axios';
+import { PizzaProps } from './pizza-api.types';
 
 const { CancelToken } = axios;
 
-const baseUrl = 'https://3x6vhe5b45.api.quickmocker.com';
+const baseUrl = 'http://localhost:3001';
 
 export const pizzasItems = {
-  action: (): Promise<any> =>
+  action: (): Promise<{ data: PizzaProps[] }> =>
     axios.get(`${baseUrl}/pizzas`, {
       cancelToken: new CancelToken((c: Canceler) => (pizzasItems.cancel = c))
     }),

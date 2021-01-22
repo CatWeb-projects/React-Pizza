@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react';
+import { useRequest } from 'estafette';
+import { pizzasItems } from 'libs/http/api/pizza-api';
 
 interface ProviderProps {
   children: ReactNode;
@@ -46,6 +48,7 @@ interface CardInfo {
 }
 
 interface Props {
+  pizzas: Pizza[];
   cartPizzas: CardPizza[];
   type: string;
   form: Form;
@@ -56,6 +59,7 @@ interface Props {
   filtered: Pizza[];
   saveFilteredCategory: number;
   selectType: string;
+  setPizzas: React.Dispatch<React.SetStateAction<Pizza[]>>;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
   setForm: React.Dispatch<React.SetStateAction<Form>>;
@@ -69,7 +73,7 @@ interface Props {
 }
 
 const defaultValue = {
-  sortedPizzas: [],
+  pizzas: [],
   id: 0,
   imageUrl: '',
   name: '',
@@ -104,7 +108,7 @@ const defaultValue = {
   filtered: [],
   saveFilteredCategory: 0,
   selectType: 'popularity',
-  setSortedPizzas: () => {},
+  setPizzas: () => {},
   setCardPizzas: () => {},
   setType: () => {},
   setForm: () => {},
@@ -251,10 +255,121 @@ export const pizzas: Pizza[] = [
     price: [445, 725, 895],
     category: 3,
     rating: 10
+  },
+  {
+    id: 12,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/f5efd84790134654b9eb84c89f2c9ca8_233x233.jpeg',
+    name: 'Нежный лосось',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [495, 795, 935],
+    category: 3,
+    rating: 9
+  },
+  {
+    id: 13,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/26fa2948b6c74113afb9d09a3262fc26_233x233.jpeg',
+    name: 'Ветчина и грибы',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [345, 525, 695],
+    category: 1,
+    rating: 6
+  },
+  {
+    id: 14,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/12faf8763c694ce7a51afe75401d19d6_233x233.jpeg',
+    name: 'Аррива!',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [395, 625, 775],
+    category: 3,
+    rating: 9
+  },
+  {
+    id: 15,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/efed3525d49b4ccfbcef9278570419db_233x233.jpeg',
+    name: 'Карбонара',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [395, 625, 775],
+    category: 5,
+    rating: 5
+  },
+  {
+    id: 16,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/32ab88d1819048e285a91d91b9ef4451_233x233.jpeg',
+    name: 'Песто',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [445, 695, 845],
+    category: 3,
+    rating: 8
+  },
+  {
+    id: 17,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/acaac700-4c9a-4fde-b7c2-4483f52e8427.jpg',
+    name: 'Мексиканская 🌶️🌶️',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [445, 695, 845],
+    category: 4,
+    rating: 6
+  },
+  {
+    id: 18,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/95e5c389-8861-4fb3-99b6-0c2af50615a8.jpg',
+    name: 'Мясная',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [445, 695, 845],
+    category: 1,
+    rating: 7
+  },
+  {
+    id: 19,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/a38eebac-9fab-44ac-a417-620957548a41.jpg',
+    name: 'Цыпленок барбекю',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [445, 695, 845],
+    category: 3,
+    rating: 7
+  },
+  {
+    id: 20,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/704adfe0-982d-4bb8-9a2a-5554c356df87.jpg',
+    name: 'Супермясная',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [495, 795, 935],
+    category: 1,
+    rating: 6
+  },
+  {
+    id: 21,
+    imageUrl:
+      'https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/78a8d351-ec50-49b8-ba8e-6cc18611cc13.jpg',
+    name: 'Сырный цыпленок',
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: [445, 695, 845],
+    category: 3,
+    rating: 5
   }
 ];
 
 export const ProviderContext = (props: ProviderProps) => {
+  const [pizzas, setPizzas] = React.useState<Pizza[]>([]);
   const [cartPizzas, setCardPizzas] = React.useState<CardPizza[]>([]);
   const [type, setType] = React.useState<string>('');
   const [form, setForm] = React.useState<any>({});
@@ -268,6 +383,21 @@ export const ProviderContext = (props: ProviderProps) => {
     setSaveFilteredCategory
   ] = React.useState<number>(0);
   const [selectType, setSelectType] = React.useState<string>('popularity');
+
+  const { request, data } = useRequest<Pizza[]>();
+
+  React.useEffect(() => {
+    onFetch();
+
+    return () => {
+      pizzasItems.cancel();
+    };
+    //eslint-disable-next-line
+  }, []);
+
+  const onFetch = () => request(pizzasItems.action());
+
+  React.useMemo(() => setPizzas(data), [data]);
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -314,6 +444,8 @@ export const ProviderContext = (props: ProviderProps) => {
   }, [cardInfo]);
 
   const values = {
+    pizzas,
+    setPizzas,
     cartPizzas,
     setCardPizzas,
     type,

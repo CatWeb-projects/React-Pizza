@@ -1,5 +1,5 @@
 import React from 'react';
-import { PizzaContext, pizzas } from 'contexts/PizzaContext';
+import { PizzaContext } from 'contexts/PizzaContext';
 import { Button } from 'ui/atoms/Button/Button';
 
 import './Categories.scss';
@@ -39,6 +39,7 @@ const buttonInfo = [
 
 export const Categories = () => {
   const {
+    pizzas,
     setFiltered,
     saveFilteredCategory,
     setSaveFilteredCategory,
@@ -60,7 +61,7 @@ export const Categories = () => {
       });
     },
     // eslint-disable-next-line
-    []
+    [pizzas]
   );
 
   React.useEffect(() => {

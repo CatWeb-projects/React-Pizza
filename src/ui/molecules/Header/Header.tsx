@@ -18,7 +18,7 @@ export const Header = () => {
             {cartPizzas.reduce(
               (total, item) => total + item.price * item.quantity,
               0
-            )}
+            )}{' '}
             ₽
           </span>
 

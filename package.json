@@ -11,6 +11,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "estafette": "^1.0.9",
     "estafette-router": "^2.2.1",
+    "json-server": "^0.16.3",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -23,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "server": "json-server --watch db.json localhost -p 3001",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lerna:lint:js": "lerna run lint:js:fix",
