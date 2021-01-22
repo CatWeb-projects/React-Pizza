@@ -75,7 +75,7 @@ export const OrderForm: React.FC<Props> = ({
     setForm({
       ...form,
       email: event.target.value.replace(
-        /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+([A-Za-z])$/gi,
+        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/gi,
         ''
       )
     });

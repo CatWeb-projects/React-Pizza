@@ -139,7 +139,7 @@ export const pizzas: Pizza[] = [
     types: [0],
     sizes: [26, 30, 40],
     price: [245, 435, 575],
-    category: 1,
+    category: 5,
     rating: 6
   },
   {
