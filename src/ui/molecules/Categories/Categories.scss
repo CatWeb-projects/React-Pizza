@@ -6,6 +6,20 @@
   display: flex;
   justify-content: space-between;
 
+  &__buttons {
+   button {
+      color: #eb5a1e;
+      font-weight: 900;
+      margin: rem(0 5px);
+      transition: 0.3s all;
+
+      &:hover {
+      color: #fff;
+      background-color: #008ffb;
+    }
+   }
+  }
+
   &__select {
     display: flex;
     justify-content: center;
@@ -15,6 +29,7 @@
     i,
     span {
       margin-right: rem(5px);
+      font-weight: 700;
     }
     
     select {
@@ -23,9 +38,11 @@
       border: none;
       cursor: pointer;
       border-bottom: rem(1px) dotted #fe5f1e;
+      font-weight: 700;
     }
   }
   .active-filter {
+    color: #fff;
     background-color: lighten(#ff851b, 15%);
   }
 }

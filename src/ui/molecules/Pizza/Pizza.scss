@@ -14,7 +14,8 @@
   }
 
   img {
-    height: rem(260px);
+    max-height: rem(300px);
+    height: auto;
     transition: all 150ms ease-out 0s ;
     position: relative;
     top: 0;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { pizzas, PizzaContext } from 'contexts/PizzaContext';
+import { PizzaContext } from 'contexts/PizzaContext';
 import { Button, Icon } from 'ui/atoms';
 
 import './Pizza.scss';
@@ -52,29 +52,31 @@ export const Pizza: React.FC<Props> = ({ pizza }) => {
     [cartPizzas]
   );
 
-  const selectSize = React.useCallback((id: number, size: number) => {
-    pizzas.map((pizza) => {
-      if (pizza.id === id) {
+  const selectSize = React.useCallback(
+    (id: number, size: number) => {
+      if (pizza.id === id && pizza.sizes) {
         setSaveId(pizza.id);
         pizza.sizes.filter((match) => match === size);
         setPizzaSize(size);
         const priceValue = pizza.sizes.indexOf(size);
-        setPizzaPrice(pizza.price[priceValue]);
+        setPizzaPrice(pizza.price && pizza.price[priceValue]);
       }
       return null;
-    });
-  }, []);
+    },
+    [pizza]
+  );
 
-  const selectCakeType = React.useCallback((id: number, type: number) => {
-    pizzas.map((pizza) => {
-      if (pizza.id === id) {
+  const selectCakeType = React.useCallback(
+    (id: number, type: number) => {
+      if (pizza.id === id && pizza.types) {
         setSaveId(pizza.id);
         pizza.types.filter((match) => match === type);
         setPizzaType(type);
       }
       return null;
-    });
-  }, []);
+    },
+    [pizza]
+  );
 
   return (
     pizza && (
