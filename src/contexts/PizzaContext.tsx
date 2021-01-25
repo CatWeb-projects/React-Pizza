@@ -32,10 +32,10 @@ interface Form {
   phone: string;
   email: string;
   address: string;
-  apartment: number | string;
-  entrance: number | string;
-  floor: number | string;
-  code: number | string;
+  apartment: number;
+  entrance: number;
+  floor: number;
+  code: number;
 }
 
 interface CardInfo {
@@ -59,6 +59,7 @@ interface Props {
   filtered: Pizza[];
   saveFilteredCategory: number;
   selectType: string;
+  loading: boolean;
   setPizzas: React.Dispatch<React.SetStateAction<Pizza[]>>;
   setCardPizzas: React.Dispatch<React.SetStateAction<CardPizza[]>>;
   setType: React.Dispatch<React.SetStateAction<string>>;
@@ -70,6 +71,7 @@ interface Props {
   setFiltered: React.Dispatch<React.SetStateAction<Pizza[]>>;
   setSaveFilteredCategory: React.Dispatch<React.SetStateAction<number>>;
   setSelectType: React.Dispatch<React.SetStateAction<string>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultValue = {
@@ -89,10 +91,10 @@ const defaultValue = {
     phone: '',
     email: '',
     address: '',
-    apartment: '',
-    entrance: '',
-    floor: '',
-    code: ''
+    apartment: 0,
+    entrance: 0,
+    floor: 0,
+    code: 0
   },
   cardInfo: {
     cardType: '',
@@ -108,6 +110,7 @@ const defaultValue = {
   filtered: [],
   saveFilteredCategory: 0,
   selectType: 'popularity',
+  loading: true,
   setPizzas: () => {},
   setCardPizzas: () => {},
   setType: () => {},
@@ -118,7 +121,8 @@ const defaultValue = {
   setConfirmation: () => {},
   setFiltered: () => {},
   setSaveFilteredCategory: () => {},
-  setSelectType: () => {}
+  setSelectType: () => {},
+  setLoading: () => {}
 };
 
 export const PizzaContext = React.createContext<Props>(defaultValue);
@@ -383,8 +387,9 @@ export const ProviderContext = (props: ProviderProps) => {
     setSaveFilteredCategory
   ] = React.useState<number>(0);
   const [selectType, setSelectType] = React.useState<string>('popularity');
+  const [loading, setLoading] = React.useState<boolean>(true);
 
-  const { request, data } = useRequest<Pizza[]>();
+  const { request, data, loading: load } = useRequest<Pizza[]>();
 
   React.useEffect(() => {
     onFetch();
@@ -398,6 +403,7 @@ export const ProviderContext = (props: ProviderProps) => {
   const onFetch = () => request(pizzasItems.action());
 
   React.useMemo(() => setPizzas(data), [data]);
+  React.useMemo(() => setLoading(load), [load]);
 
   React.useEffect(() => {
     const data = localStorage.getItem('cart-products');
@@ -465,7 +471,9 @@ export const ProviderContext = (props: ProviderProps) => {
     saveFilteredCategory,
     setSaveFilteredCategory,
     selectType,
-    setSelectType
+    setSelectType,
+    loading,
+    setLoading
   };
 
   const { children } = props;

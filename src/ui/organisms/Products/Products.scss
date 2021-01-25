@@ -33,4 +33,15 @@
       text-align: center;
     }
   }
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  
+    img {
+      height: rem(200px);
+    }
+  }
 }

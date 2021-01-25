@@ -49,7 +49,7 @@ export const OrderForm: React.FC<Props> = ({
   console.log(form);
 
   const onChangeValue = React.useCallback(
-    (event: { target: any }) => {
+    (event: { target: { value: any; name: string } }) => {
       const { name, value } = event.target;
       setForm({
         ...form,

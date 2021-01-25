@@ -1,28 +1,20 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
 import { Pizza } from 'ui/molecules';
+import { Loader } from 'ui/atoms';
 
 import './Products.scss';
 
 export const Products = () => {
-  const { pizzas, saveFilteredCategory, filtered } = React.useContext(
+  const { pizzas, saveFilteredCategory, filtered, loading } = React.useContext(
     PizzaContext
   );
-
-  const [loading, setLoading] = React.useState<boolean>(true);
-
-  React.useEffect(() => {
-    if (pizzas) {
-      setLoading(false);
-    }
-    return;
-  }, [pizzas]);
 
   return (
     <div className="products-container">
       <h2>Все Пиццы</h2>
 
-      {loading ? <h1>loading...</h1> : null}
+      {loading && <Loader />}
       <div className="products-container__products">
         {pizzas &&
           (saveFilteredCategory ? filtered : pizzas).map((pizza) => (
