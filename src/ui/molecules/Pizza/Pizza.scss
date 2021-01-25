@@ -11,18 +11,40 @@
     > div {
       margin-top: rem(10px);
     }
+
+    &__img {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   img {
-    max-height: rem(300px);
+    max-height: rem(280px);
     height: auto;
     transition: all 150ms ease-out 0s ;
     position: relative;
     top: 0;
+    width: auto;
 
     &:hover {
       top: rem(3px);
       // transform: translate(0, 3px);
+    }
+
+    @include mq($until: desktop) {
+      max-height: rem(260px);
+    }
+
+    @include mq($until: small-desktop) {
+      max-height: rem(300px);
+    }
+
+    @include mq($until: tablet) {
+      max-height: rem(260px);
+    }
+
+    @include mq($until: small-tablet) {
+      max-height: rem(350px);
     }
   }
 

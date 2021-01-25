@@ -5,7 +5,7 @@
 
 .cart-container {
   &__logo {
-    height: 100px;
+    height: rem(100px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,24 +24,77 @@
   padding: rem(30px);
   border: rem(2px) solid #e7e7e7;
   border-radius: rem(12px);
+
+  @include mq($until: small-desktop) {
+    width: calc(100% - 30px);
+  }
+
+  @include mq($until: small-tablet) {
+    padding: rem(10px);
+  }
+
+  &__number {
+    h3 {
+      @include mq($until: desktop) {
+        font-size: rem(30px);
+      }
+
+      @include mq($until: small-tablet) {
+        font-size: rem(25px);
+      }
+    }
+  }
   
   &__header {
     display: flex;
     justify-content: space-between;
     border-bottom: rem(1px) solid #d8d8d8;
     padding: rem(20px);
+
+    @include mq($until: small-tablet) {
+      padding: rem(20px 0);
+    }
   }
 
   &__header-wrapper {
     display: grid;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
     justify-items: center;
+
+    @include mq($until: wide) {
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
+
+    @include mq($until: small-tablet) {
+      grid-template-columns: repeat(3, minmax(70px, 1fr));
+      font-size: rem(14px);
+      justify-items: center;
+    }
+  }
+
+  &__header-info {
+    @include mq($until: small-tablet) {
+      margin-right: 10px;
+    }
   }
 
   &__header-wrapper, &__header-info {
     > div {
       font-size: rem(26px);
       margin-left: rem(25px);
+
+      @include mq($until: desktop) {
+        font-size: rem(20px);
+      }
+
+      @include mq($until: tablet) {
+        font-size: rem(18px);
+      }
+
+      @include mq($until: small-tablet) {
+        font-size: rem(14px);
+        margin-left: 0;
+      }
     }
   }
 
@@ -49,6 +102,18 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(200px, 1fr));
     justify-items: center;
+
+    @include mq($until: wide) {
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
+    @include mq($until: tablet) {
+      grid-template-columns: repeat(1, minmax(110px, 1fr));
+    }
+
+    @include mq($until: small-tablet) {
+      grid-template-columns: repeat(1, minmax(70px, 1fr));
+    }
   }
 
   &__pizza-info {
@@ -56,11 +121,23 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    font-size: rem(13px);
+    font-size: rem(14px);
     font-family: "Futura New Book", sans-serif;
+
+    @include mq($until: desktop) {
+      font-size: rem(12px);
+    }
 
     > div:first-child {
       font-size: rem(20px);
+
+      @include mq($until: desktop) {
+        font-size: rem(16px);
+      }
+
+      @include mq($until: small-tablet) {
+        font-size: rem(14px);
+      }
     }
 
     > div {
@@ -78,6 +155,14 @@
     &:hover {
       color: lighten(#142cd9, 30%);
     }
+
+    @include mq($until: desktop) {
+      font-size: rem(14px);
+    }
+
+    @include mq($until: small-tablet) {
+      font-size: rem(12px);
+    }
   }
 
   &__title {
@@ -91,6 +176,10 @@
     max-width: rem(165px);
     height: auto;
     margin-top: rem(15px);
+
+    @include mq($until: small-tablet) {
+      max-width: rem(80px);
+    }
 
     img {
       width: 100%;
@@ -108,6 +197,22 @@
     > div {
       font-size: rem(26px);
       display: flex;
+
+      @include mq($until: desktop) {
+        font-size: rem(20px);
+      }
+
+      @include mq($until: small-tablet) {
+        font-size: rem(14px);
+      }
+    }
+
+    @include mq($until: wide) {
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
+
+    @include mq($until: small-tablet) {
+      grid-template-columns: repeat(3, minmax(50px, 1fr));
     }
   }
 
@@ -125,6 +230,18 @@
       color: lighten(#0d9948, 15%);
       background-color:#ff851b;
     }
+
+    @include mq($until: desktop) {
+      font-size: rem(20px);
+      width: rem(25px);
+      height: rem(25px);
+    }
+
+    @include mq($until: small-tablet) {
+      font-size: rem(10px);
+      width: rem(20px);
+      height: rem(20px);
+    }
   }
 
   &__item {
@@ -139,6 +256,20 @@
     margin-right: rem(40px);
     font-size: rem(30px);
     font-family: "Futura New Book", sans-serif;
+    text-decoration: underline;
+
+    @include mq($until: desktop) {
+      font-size: rem(24px);
+    }
+
+    @include mq($until: tablet) {
+      margin-right: 0;
+      align-self: center;
+    }
+
+    @include mq($until: small-tablet) {
+      font-size: rem(20px);
+    }
   }
 
   &__buttons {
@@ -146,6 +277,10 @@
     margin: rem(30px) auto;
     display: flex;
     justify-content: space-between;
+
+    @include mq($until: desktop) {
+      margin: rem(15px) auto;
+    }
   }
 }
 
@@ -162,6 +297,22 @@
     margin-right: rem(5px);
     fill: #fff;
     font-size: rem(18px);
+
+    @include mq($until: desktop) {
+      font-size: rem(14px);
+    }
+  }
+
+  @include mq($until: desktop) {
+    font-size: rem(14px);
+    max-width: rem(180px);
+    height: rem(40px);
+  }
+
+  @include mq($until: small-tablet) {
+    font-size: rem(12px);
+    max-width: rem(150px);
+    height: rem(30px);
   }
 }
 

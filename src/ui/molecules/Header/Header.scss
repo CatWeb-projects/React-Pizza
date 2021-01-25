@@ -7,6 +7,11 @@
   align-items: center;
   justify-content: space-between;
 
+  @include mq($until: small-tablet) {
+    flex-direction: column;
+    margin-top: rem(20px);
+  }
+
   &__logo-container {
     display: flex;
   }
@@ -47,6 +52,10 @@
   }
 
   &__cart {
+    @include mq($until: small-tablet) {
+      margin-top: rem(20px);
+    }
+
     a {
       width: rem(150px);
       height: rem(50px);

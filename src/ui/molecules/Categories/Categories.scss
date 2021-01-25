@@ -6,8 +6,17 @@
   display: flex;
   justify-content: space-between;
 
+  @include mq($until: wide) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__buttons {
-   button {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+
+    button {
       color: #eb5a1e;
       font-weight: 900;
       margin: rem(0 5px);
@@ -16,8 +25,20 @@
       &:hover {
       color: #fff;
       background-color: #008ffb;
+      }
+
+      @include mq($until: wide) {
+        font-size: rem(12px);
+      }
+
+      @include mq($until: desktop) {
+        margin-top: rem(10px);
+      }
     }
-   }
+
+    @include mq($until: wide) {
+      margin-bottom: rem(20px);
+    }
   }
 
   &__select {
@@ -27,7 +48,7 @@
     font-size: rem(14px);
 
     i,
-    span {
+    span, svg {
       margin-right: rem(5px);
       font-weight: 700;
     }

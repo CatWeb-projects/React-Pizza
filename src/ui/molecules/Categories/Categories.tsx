@@ -1,6 +1,6 @@
 import React from 'react';
 import { PizzaContext } from 'contexts/PizzaContext';
-import { Button } from 'ui/atoms/Button/Button';
+import { Button, Icon } from 'ui/atoms/';
 
 import './Categories.scss';
 
@@ -120,7 +120,7 @@ export const Categories = () => {
           ))}
       </div>
       <div className="categories-container__select">
-        <i className="fas fa-sort-up"></i>
+        <Icon type="sort" />
         <span>Сортировка по:</span>
         <select onChange={(e) => setSelectType(e.target.value)}>
           <option value="popularity">По популярности</option>

@@ -1,3 +1,14 @@
+@import '~styles/mixins';
+@import '~styles/media-queries';
+
 .main-container {
   padding: 0 5%;
+
+  @include mq($until: extra-extra-wide) {
+    padding: rem(0 30px);
+  }
+
+  @include mq($until: desktop) {
+    padding: rem(0 10px);
+  }
 }
