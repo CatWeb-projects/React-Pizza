@@ -46,14 +46,12 @@ export const OrderForm: React.FC<Props> = ({
     [form]
   );
 
-  console.log(form);
-
   const onChangeValue = React.useCallback(
     (event: { target: { value: any; name: string } }) => {
       const { name, value } = event.target;
       setForm({
         ...form,
-        [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
+        [name]: isNaN(value) ? '' : Number(value) === 0 ? '' : Number(value)
       });
     },
     // eslint-disable-next-line
@@ -74,10 +72,11 @@ export const OrderForm: React.FC<Props> = ({
   const onAddEmail = (event: { target: { value: string } }) => {
     setForm({
       ...form,
-      email: event.target.value.replace(
-        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/gi,
-        ''
-      )
+      email: event.target.value
+      // .replace(
+      //   /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/gi,
+      //   ''
+      // )
     });
   };
 
@@ -147,7 +146,8 @@ export const OrderForm: React.FC<Props> = ({
             <div className="order-container__form-group">
               <label htmlFor="email">Email</label>
               <input
-                type="text"
+                type="email"
+                required
                 placeholder="Email"
                 name="email"
                 value={form.email === undefined || null ? '' : form.email}

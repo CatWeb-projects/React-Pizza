@@ -52,7 +52,7 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
   //     const { name, value } = event.target;
   //     setCardInfo({
   //       ...cardInfo,
-  //       [name]: isNaN(value) ? value : Number(value) === 0 ? '' : Number(value)
+  //       [name]: isNaN(value) ? '' : Number(value) === 0 ? '' : Number(value)
   //     });
   //   },
   //   // eslint-disable-next-line
@@ -99,9 +99,6 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
       cvc: event.target.value.substr(0, 3)
     });
   };
-
-  console.log(cardInfo, 'cards');
-  console.log(type, 'type');
 
   return (
     <div className="card-type-container">
