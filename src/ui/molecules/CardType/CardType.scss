@@ -21,6 +21,18 @@
     color: #65f27d;
     position: relative;
     background-color: #1c4b57;
+
+    @include mq($until: small-desktop) {
+      width: 90%;
+    }
+
+    @include mq($until: tablet) {
+      width: calc(100% - 30px);
+    }
+
+    @include mq($until: small-tablet) {
+      width: calc(100% - 15px);
+    }
   }
 
   &__cards-holder {
@@ -29,6 +41,14 @@
     grid-template-rows: minmax(250px, 1fr);
     justify-items: center;
     align-items: center;
+
+    @include mq($until: tablet) {
+      grid-template-rows: minmax(150px, 1fr);
+    }
+
+    @include mq($until: tablet) {
+      grid-template-rows: minmax(100px, 1fr);
+    }
   }
 
   &__cards {
@@ -40,6 +60,14 @@
     svg {
       font-size: rem(150px);
       fill: #67aefc;
+
+      @include mq($until: tablet) {
+        font-size: rem(100px);
+      }
+
+      @include mq($until: tablet) {
+        font-size: rem(70px);
+      }
     }
   }
 
@@ -58,6 +86,10 @@
       width: 100%;
       color: #fff;
       font-size: rem(20px);
+
+      @include mq($until: tablet) {
+        height: rem(35px);
+      }
     }
   }
 
@@ -96,11 +128,37 @@
     margin-bottom: rem(20px);
     color: #fff;
     text-decoration: underline;
+
+    @include mq($until: desktop) {
+      h2{
+        font-size: rem(40px);
+      }
+    }
+
+    @include mq($until: tablet) {
+      h2{
+        font-size: rem(35px);
+      }
+    }
+
+    @include mq($until: small-tablet) {
+      h2{
+        font-size: rem(30px);
+      }
+    }
   }
 
   &__card-info {
     width: 70%;
     border-radius: rem(10px);
+
+    @include mq($until: desktop) {
+      width: 90%;
+    }
+
+    @include mq($until: tablet) {
+      width: 100%;
+    }
 
     input {
       height: 50px;
@@ -110,6 +168,10 @@
       color: #fff;
       font-size: rem(20px);
       padding-left: 30%;
+
+      @include mq($until: wide) {
+        padding-left: 35%;
+      }
     }
 
     span {
@@ -117,6 +179,14 @@
       color: #7175a2;
       font-weight: 700;
       font-size: rem(20px);
+
+      @include mq($until: tablet) {
+        font-size: rem(12px);
+      }
+
+      @include mq($until: small-tablet) {
+        position: absolute;
+      }
     }
   }
 
@@ -154,22 +224,58 @@
   &__card-additionals {
     position: relative;
 
+    @include mq($until: small-tablet) {
+      display: flex;
+      flex-direction: column;
+    }
+
     input {
       width: 50%;
+
+      @include mq($until: small-tablet) {
+        width: 100%;
+        padding-left: rem(10px);
+      }
     }
 
     input:last-of-type {
       padding-left: 20%;
+
+      @include mq($until: wide) {
+        padding-left: 25%;
+      }
+
+      @include mq($until: tablet) {
+        padding-left: 30%;
+      }
+
+      @include mq($until: tablet) {
+        padding-left: rem(10px);
+        border-top: rem(2px) solid #2a2e57;
+      }
     }
 
     span {
       top: 50%;
       left: rem(20px);
       transform: translate(0, -50%);
+
+      @include mq($until: small-tablet) {
+        display: flex;
+        top: 0;
+        left: 0;
+        margin-left: rem(10px);
+        transform: none;
+      }
     }
 
     span:last-of-type {
       left: calc(50% + 20px);
+
+      @include mq($until: tablet) {
+        left: 0;
+        top: 52%;
+      }
     }
   }
 }

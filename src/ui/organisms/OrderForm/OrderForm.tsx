@@ -43,7 +43,7 @@ export const OrderForm: React.FC<Props> = ({
       }, 3000);
     },
     // eslint-disable-next-line
-    [form, message]
+    [form]
   );
 
   console.log(form);

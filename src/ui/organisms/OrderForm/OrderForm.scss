@@ -21,6 +21,22 @@
     color: #65f27d;
     position: relative;
     background-color: #1c4b57;
+
+    @include mq($until: wide) {
+      width: 80%;
+    }
+
+    @include mq($until: desktop) {
+      width: 90%;
+    }
+
+    @include mq($until: tablet) {
+      width: 70%;
+    }
+
+    @include mq($until: small-tablet) {
+      width: 90%;
+    }
     
     input {
       outline: none;
@@ -48,9 +64,17 @@
   &__form-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
+    @include mq($until: tablet) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__img {
+    @include mq($until: tablet) {
+      display: none
+    }
+
     img {
       height: auto;
       width: 100%;
@@ -66,6 +90,10 @@
 
   form {
     margin-right: rem(30px);
+
+    @include mq($until: tablet) {
+      margin-right: 0;
+    }
   }
 
   &__apartment {
@@ -94,8 +122,6 @@
   }
 
   &__next-div {
-    // display: flex;
-    // justify-content: center;
     text-align: center;
     margin-top: rem(0);
     color: #fff;
@@ -107,6 +133,10 @@
     color: #fff;
     transition: 0.3s all;
     margin-top: rem(10px);
+
+    @include mq($until: small-desktop) {
+      height: rem(35px);
+    }
 
     &:hover {
       background-color: darken(#65f27d, 30%);

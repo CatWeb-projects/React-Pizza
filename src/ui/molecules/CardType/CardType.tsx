@@ -60,7 +60,7 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
   // );
 
   // const onChangeType = React.useCallback(
-  //   () => {
+  //   (type) => {
   //     setCardInfo({ ...cardInfo, cardType: type });
   //   },
   //   // eslint-disable-next-line
@@ -178,6 +178,7 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
             </div>
 
             <div className="card-type-container__card-additionals">
+              <span>Срок Действия</span>
               <input
                 type="text"
                 placeholder="ММ/ГГ"
@@ -189,7 +190,7 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
                 }
                 onChange={onAddExpDate}
               />
-              <span>Срок Действия</span>
+              <span>CVC/CVV</span>
               <input
                 type="text"
                 name="cvc"
@@ -197,7 +198,6 @@ export const CardType: React.FC<Props> = ({ onClose, onPrevStep }) => {
                 value={cardInfo.cvc === undefined || null ? '' : cardInfo.cvc}
                 onChange={onAddCvc}
               />
-              <span>CVC/CVV</span>
             </div>
           </div>
         </div>
