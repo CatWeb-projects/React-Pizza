@@ -51,8 +51,6 @@ export const Cart = () => {
     setOrder(false);
   };
 
-  console.log(form, 'cart form');
-
   const onCardPayment = () => {
     setCardType((s) => !s);
     setOrder(false);
