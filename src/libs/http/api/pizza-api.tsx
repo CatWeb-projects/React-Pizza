@@ -3,7 +3,7 @@ import { PizzaProps } from './pizza-api.types';
 
 const { CancelToken } = axios;
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'http://localhost:3005';
 
 export const pizzasItems = {
   action: (): Promise<{ data: PizzaProps[] }> =>

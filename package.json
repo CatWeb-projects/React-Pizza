@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "json-server --watch db.json localhost -p 3001",
+    "server": "json-server --watch db.json localhost -p 3005",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lerna:lint:js": "lerna run lint:js:fix",
