@@ -18,7 +18,7 @@ export const OrderForm: React.FC<Props> = ({
 }) => {
   const { form, setForm } = React.useContext(PizzaContext);
 
-  const [message, setMessage] = React.useState<string>();
+  const [message, setMessage] = React.useState<string | null>(null);
 
   const onAddFormInfo = React.useCallback(
     (event: any) => {
@@ -37,14 +37,17 @@ export const OrderForm: React.FC<Props> = ({
       });
 
       setMessage('Адрес Сохранён');
-
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
     },
     // eslint-disable-next-line
     [form]
   );
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setMessage(null), 3000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [message]);
 
   const onChangeValue = React.useCallback(
     (event: { target: { value: any; name: string } }) => {
